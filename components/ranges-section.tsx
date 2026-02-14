@@ -1,0 +1,94 @@
+"use client"
+
+import { useI18n } from "@/lib/i18n"
+import Image from "next/image"
+import { ArrowRight } from "lucide-react"
+
+const ranges = [
+  {
+    id: "ceremonial",
+    titleKey: "ranges.ceremonial.title",
+    descKey: "ranges.ceremonial.description",
+    productsKey: "ranges.ceremonial.products",
+    image: "/images/yame-velvet.jpg",
+    format: "30g",
+    formatLabel: { fr: "Boite metallisee", en: "Metal tin" },
+  },
+  {
+    id: "grandcru",
+    titleKey: "ranges.grandCru.title",
+    descKey: "ranges.grandCru.description",
+    productsKey: "ranges.grandCru.products",
+    image: "/images/packshot-20grand-20cru-20uji-20single-20garden.png",
+    format: "30g",
+    formatLabel: { fr: "Boite metallisee", en: "Metal tin" },
+  },
+  {
+    id: "daily",
+    titleKey: "ranges.daily.title",
+    descKey: "ranges.daily.description",
+    productsKey: "ranges.daily.products",
+    image: "/images/daily-matcha.jpg",
+    format: "100g",
+    formatLabel: { fr: "Paquet en vrac", en: "Bulk package" },
+  },
+]
+
+export function RangesSection() {
+  const { t, locale } = useI18n()
+
+  return (
+    <section id="ranges" className="py-24 lg:py-32 px-4">
+      <div className="mx-auto max-w-7xl">
+        <div className="text-center mb-16">
+          <h2 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4 text-balance">
+            {t("ranges.title")}
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            {t("ranges.subtitle")}
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {ranges.map((range) => (
+            <div
+              key={range.id}
+              id={range.id}
+              className="group bg-card border border-border/50 rounded-sm overflow-hidden hover:border-primary/30 transition-all duration-500"
+            >
+              <div className="relative aspect-square overflow-hidden">
+                <Image
+                  src={range.image || "/placeholder.svg"}
+                  alt={t(range.titleKey)}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
+                <div className="absolute bottom-4 left-4">
+                  <span className="inline-block bg-primary/90 text-primary-foreground text-xs tracking-wider uppercase px-3 py-1 rounded-sm font-medium">
+                    {range.formatLabel[locale]} - {range.format}
+                  </span>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="font-serif text-2xl font-bold text-foreground mb-2">
+                  {t(range.titleKey)}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  {t(range.descKey)}
+                </p>
+                <p className="text-primary text-sm font-medium mb-4">
+                  {t(range.productsKey)}
+                </p>
+                <button className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors group/btn">
+                  {t("products.discover")}
+                  <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
