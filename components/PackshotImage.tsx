@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 type PackshotImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   overlay?: boolean;
@@ -6,7 +7,13 @@ type PackshotImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
 
 export default function PackshotImage({ overlay = true, ...props }: PackshotImageProps) {
   return (
-    <div style={{ position: "relative", display: "inline-block" }}>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      viewport={{ once: true }}
+      style={{ position: "relative", display: "inline-block" }}
+    >
       <img {...props} style={{ display: "block", width: "100%", ...props.style }} />
       {overlay && (
         <img
@@ -24,6 +31,6 @@ export default function PackshotImage({ overlay = true, ...props }: PackshotImag
           }}
         />
       )}
-    </div>
+    </motion.div>
   );
 }

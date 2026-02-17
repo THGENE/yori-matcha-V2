@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useI18n } from "@/lib/i18n"
 import PackshotImage from "@/components/PackshotImage"
 import { Star, ShoppingBag, ChevronDown, ChevronUp } from "lucide-react"
+import SectionReveal from "@/components/ui/SectionReveal"
 
 type Product = {
   id: string
@@ -245,10 +246,10 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export function ProductsSection() {
-  const { t, locale } = useI18n()
+  const { t, locale } = useI18n();
 
   return (
-    <section id="bestsellers" className="py-24 lg:py-32 px-4 bg-secondary/20">
+    <SectionReveal id="bestsellers" className="py-24 lg:py-32 px-4 bg-secondary/20">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4 text-balance">
@@ -258,13 +259,11 @@ export function ProductsSection() {
             {t("bestsellers.subtitle")}
           </p>
         </div>
-
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.slice(0, 3).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-
         {/* All products grid */}
         <div className="mt-16">
           <h3 className="font-serif text-2xl font-bold text-foreground mb-8 text-center">
@@ -277,6 +276,6 @@ export function ProductsSection() {
           </div>
         </div>
       </div>
-    </section>
-  )
+    </SectionReveal>
+  );
 }
