@@ -1,7 +1,7 @@
 "use client"
 
 import { useI18n } from "@/lib/i18n"
-import Image from "next/image"
+import PackshotImage from "@/components/PackshotImage"
 import { ArrowRight } from "lucide-react"
 
 const ranges = [
@@ -57,11 +57,10 @@ export function RangesSection() {
               className="group bg-card border border-border/50 rounded-sm overflow-hidden hover:border-primary/30 transition-all duration-500"
             >
               <div className="relative aspect-square overflow-hidden">
-                <Image
+                <PackshotImage
                   src={range.image || "/placeholder.svg"}
                   alt={t(range.titleKey)}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
                 <div className="absolute bottom-4 left-4">

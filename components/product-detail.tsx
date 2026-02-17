@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useI18n } from "@/lib/i18n"
-import Image from "next/image"
+import PackshotImage from "@/components/PackshotImage"
 import { Star, ShoppingBag, ChevronDown, ChevronUp } from "lucide-react"
 
 type Product = {
@@ -127,11 +127,10 @@ function ProductCard({ product }: { product: Product }) {
   return (
     <div className="bg-card border border-border/50 rounded-sm overflow-hidden hover:border-primary/30 transition-all duration-300">
       <div className="relative aspect-square overflow-hidden">
-        <Image
+        <PackshotImage
           src={product.image || "/placeholder.svg"}
           alt={product.name}
-          fill
-          className="object-cover hover:scale-105 transition-transform duration-700"
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
         />
         {product.badge && (
           <div className="absolute top-4 left-4">

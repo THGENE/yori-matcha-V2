@@ -1,6 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/product/ProductCard";
+import PackshotImage from "@/components/PackshotImage";
 import PreparationSteps from "@/components/matcha/PreparationSteps";
 
 export const dynamic = "force-dynamic";
@@ -46,14 +47,16 @@ export default function HomePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((p) => (
-            <ProductCard
-              key={p.id}
-              id={p.id}
-              name={p.name}
-              subtitle={p.subtitle}
-              price={p.price}
-              mainImage={p.mainImage}
-            />
+            <div key={p.id}>
+              <PackshotImage src={p.mainImage} alt={p.name} style={{ width: "100%", height: "auto" }} />
+              <ProductCard
+                id={p.id}
+                name={p.name}
+                subtitle={p.subtitle}
+                price={p.price}
+                mainImage={p.mainImage}
+              />
+            </div>
           ))}
         </div>
       </section>

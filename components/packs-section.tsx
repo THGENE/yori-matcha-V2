@@ -1,7 +1,7 @@
 "use client"
 
 import { useI18n } from "@/lib/i18n"
-import Image from "next/image"
+import PackshotImage from "@/components/PackshotImage"
 import { ShoppingBag, Package } from "lucide-react"
 
 const packs = [
@@ -65,11 +65,10 @@ export function PacksSection() {
               className="bg-card border border-border/50 rounded-sm overflow-hidden hover:border-primary/40 transition-all duration-300 group"
             >
               <div className="relative aspect-video overflow-hidden">
-                <Image
+                <PackshotImage
                   src={pack.image || "/placeholder.svg"}
                   alt={t(pack.titleKey)}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
