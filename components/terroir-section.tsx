@@ -22,7 +22,7 @@ export function TerroirSection() {
         {/* Full width terroir image */}
         <div className="relative aspect-[21/9] rounded-sm overflow-hidden mb-16">
           <Image
-            src="/images/terroir-japan.jpg"
+            src="/images/daily-matcha.png"
             alt="Japanese tea fields"
             fill
             className="object-cover"

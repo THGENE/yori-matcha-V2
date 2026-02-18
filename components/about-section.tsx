@@ -20,7 +20,7 @@ export function AboutSection() {
           {/* Image */}
           <div className="relative aspect-[4/5] rounded-sm overflow-hidden">
             <Image
-              src="/images/about-yori.jpg"
+              src="/images/sticks découvertes.png"
               alt="YORI Matcha"
               fill
               className="object-cover"

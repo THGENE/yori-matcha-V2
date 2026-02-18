@@ -10,7 +10,7 @@ const packs = [
     titleKey: "packs.discovery.title",
     descKey: "packs.discovery.description",
     containsKey: "packs.discovery.contains",
-    image: "/images/pack-decouverte.jpg",
+    image: "/images/sticks découvertes.png",
     price: 14.90,
     details: {
       fr: "2 sticks Ceremonial (Yame Velvet + Uji Harmony) + 2 sticks Grand Cru (Yame Heritage + Uji Single Garden) + 1 stick Daily Matcha Latte",
@@ -22,7 +22,7 @@ const packs = [
     titleKey: "packs.duoCeremonial.title",
     descKey: "packs.duoCeremonial.description",
     containsKey: "packs.duoCeremonial.contains",
-    image: "/images/yame-velvet.jpg",
+    image: "/images/uji single garden.png",
     price: 7.90,
     details: {
       fr: "1 stick Yame Velvet + 1 stick Uji Harmony",
@@ -34,7 +34,7 @@ const packs = [
     titleKey: "packs.duoGrandCru.title",
     descKey: "packs.duoGrandCru.description",
     containsKey: "packs.duoGrandCru.contains",
-    image: "/images/yame-heritage.jpg",
+    image: "/images/uji single garden.png",
     price: 9.90,
     details: {
       fr: "1 stick Yame Heritage + 1 stick Uji Single Garden",

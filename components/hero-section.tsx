@@ -17,7 +17,7 @@ export function HeroSection() {
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero-matcha.jpg"
+          src="/images/daily-matcha.png"
           alt="YORI Matcha"
           fill
           className="object-cover"

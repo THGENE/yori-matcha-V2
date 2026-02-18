@@ -13,28 +13,28 @@ const products = [
     name: "YORI UJI",
     subtitle: "Single Garden • Uji, Japon",
     price: 39.0,
-    mainImage: "/images/yori-uji-single-garden.jpg",
+    mainImage: "/images/uji single garden.png",
   },
   {
     id: "yori-yame",
     name: "YORI YAME HERITAGE",
     subtitle: "Heritage • Yame, Japon",
     price: 42.0,
-    mainImage: "/images/yori-yame-heritage.jpg",
+    mainImage: "/images/uji single garden.png",
   },
   {
     id: "yori-velvet",
     name: "YORI VELVET",
     subtitle: "Texture velours • Japon",
     price: 45.0,
-    mainImage: "/images/yori-velvet.jpg",
+    mainImage: "/images/uji single garden.png",
   },
   {
     id: "sticks-decouverte",
     name: "Sticks Découverte",
     subtitle: "Pack découverte YORI Matcha",
     price: 14.9,
-    mainImage: "/images/yori-sticks-decouverte.jpg",
+    mainImage: "/images/sticks découvertes.png",
   },
 ];
 

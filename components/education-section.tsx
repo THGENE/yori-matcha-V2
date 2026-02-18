@@ -54,7 +54,7 @@ export function EducationSection() {
           {/* Video placeholder */}
           <div className="relative aspect-video rounded-sm overflow-hidden bg-card border border-border/50">
             <Image
-              src="/images/ceremony.jpg"
+              src="/images/uji single garden.png"
               alt="Matcha preparation"
               fill
               className="object-cover"

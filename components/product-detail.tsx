@@ -27,7 +27,7 @@ const products: Product[] = [
   {
     id: "yame-velvet",
     name: "Yame Velvet",
-    image: "/images/yame-velvet.jpg",
+    image: "/images/uji single garden.png",
     price: 34.90,
     origin: "Yame, Fukuoka, Japon",
     composition: { fr: "100% Matcha Ceremonial", en: "100% Ceremonial Matcha" },
@@ -46,7 +46,7 @@ const products: Product[] = [
   {
     id: "uji-harmony",
     name: "Uji Harmony",
-    image: "/images/uji-harmony.jpg",
+    image: "/images/uji single garden.png",
     price: 32.90,
     origin: "Uji, Kyoto, Japon",
     composition: { fr: "100% Matcha Ceremonial", en: "100% Ceremonial Matcha" },
@@ -65,7 +65,7 @@ const products: Product[] = [
   {
     id: "yame-heritage",
     name: "Yame Heritage",
-    image: "/images/yame-heritage.jpg",
+    image: "/images/uji single garden.png",
     price: 42.90,
     origin: "Yame, Fukuoka, Japon",
     composition: { fr: "100% Matcha Grand Cru - Single Garden", en: "100% Grand Cru Matcha - Single Garden" },
@@ -84,7 +84,7 @@ const products: Product[] = [
   {
     id: "uji-single-garden",
     name: "Uji Single Garden",
-    image: "/images/packshot-20grand-20cru-20uji-20single-20garden.png",
+    image: "/images/uji single garden.png",
     price: 44.90,
     origin: "Uji, Kyoto, Japon",
     composition: { fr: "100% Matcha Grand Cru - Single Garden", en: "100% Grand Cru Matcha - Single Garden" },
@@ -103,7 +103,7 @@ const products: Product[] = [
   {
     id: "daily-matcha",
     name: "Daily Matcha Latte",
-    image: "/images/daily-matcha.jpg",
+    image: "/images/daily-matcha.png",
     price: 24.90,
     origin: "Kagoshima, Japon",
     composition: { fr: "100% Matcha Daily Grade", en: "100% Daily Grade Matcha" },

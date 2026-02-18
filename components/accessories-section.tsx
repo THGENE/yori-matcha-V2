@@ -43,7 +43,7 @@ export function AccessoriesSection() {
         {/* Full width image */}
         <div className="relative aspect-[21/9] rounded-sm overflow-hidden mb-12">
           <Image
-            src="/images/accessories.jpg"
+            src="/images/daily-matcha.png"
             alt={t("accessories.title")}
             fill
             className="object-cover"
