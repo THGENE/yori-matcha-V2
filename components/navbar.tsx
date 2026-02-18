@@ -5,6 +5,9 @@ import { useI18n } from "@/lib/i18n"
 import { Menu, X, ChevronDown, Globe, ShoppingBag } from "lucide-react"
 import CartSidebar from "@/components/CartSidebar"
 import { useCartStore } from "@/store/cartStore"
+import BrandLogo from "@/components/brand-logo"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export function Navbar() {
   const { t, locale, setLocale } = useI18n()
@@ -13,6 +16,16 @@ export function Navbar() {
   const [discoverOpen, setDiscoverOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
   const cartCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0))
+  const router = useRouter()
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      if (params.get("cart") !== "open") return
+      setCartOpen(true)
+      router.replace("/", { scroll: false })
+    }
+  }, [router])
 
   const scrollTo = (id: string) => {
     setMobileOpen(false)
@@ -21,13 +34,12 @@ export function Navbar() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border/50">
+    <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-md border-b border-border/50">
       <nav className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="flex h-16 items-center justify-between lg:h-20">
           {/* Logo */}
           <button onClick={() => scrollTo("hero")} className="flex items-center gap-2">
-            <span className="font-serif text-2xl font-bold tracking-wider text-primary">YORI</span>
-            <span className="text-xs tracking-widest text-muted-foreground uppercase">Matcha</span>
+            <BrandLogo variant="header" />
           </button>
 
           {/* Desktop Nav */}

@@ -5,6 +5,7 @@ import { useI18n } from "@/lib/i18n"
 import PackshotImage from "@/components/PackshotImage"
 import { Star, ShoppingBag, ChevronDown, ChevronUp } from "lucide-react"
 import SectionReveal from "@/components/ui/SectionReveal"
+import { useRouter } from "next/navigation"
 
 type Product = {
   id: string
@@ -65,7 +66,7 @@ const products: Product[] = [
   {
     id: "yame-heritage",
     name: "Yame Heritage",
-    image: "/images/uji single garden.png",
+    image: "/images/yame heritage.png",
     price: 42.90,
     origin: "Yame, Fukuoka, Japon",
     composition: { fr: "100% Matcha Grand Cru - Single Garden", en: "100% Grand Cru Matcha - Single Garden" },
@@ -123,6 +124,7 @@ const products: Product[] = [
 
 function ProductCard({ product }: { product: Product }) {
   const { t, locale } = useI18n()
+  const router = useRouter()
   const [expanded, setExpanded] = useState(false)
 
   return (
@@ -236,7 +238,10 @@ function ProductCard({ product }: { product: Product }) {
           </div>
         )}
 
-        <button className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm">
+        <button
+          onClick={() => router.push(`/produit/${product.id}`)}
+          className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
+        >
           <ShoppingBag className="h-4 w-4" />
           {t("products.addToCart")}
         </button>

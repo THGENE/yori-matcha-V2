@@ -1,68 +1,33 @@
-"use client";
-
-import ProductCard from "@/components/product/ProductCard";
-import PackshotImage from "@/components/PackshotImage";
-import PreparationSteps from "@/components/matcha/PreparationSteps";
-import SectionReveal from "@/components/ui/SectionReveal";
-
-export const dynamic = "force-dynamic";
-
-const products = [
-  {
-    id: "yori-uji",
-    name: "YORI UJI",
-    subtitle: "Single Garden • Uji, Japon",
-    price: 39.0,
-    mainImage: "/images/uji single garden.png",
-  },
-  {
-    id: "yori-yame",
-    name: "YORI YAME HERITAGE",
-    subtitle: "Heritage • Yame, Japon",
-    price: 42.0,
-    mainImage: "/images/uji single garden.png",
-  },
-  {
-    id: "yori-velvet",
-    name: "YORI VELVET",
-    subtitle: "Texture velours • Japon",
-    price: 45.0,
-    mainImage: "/images/uji single garden.png",
-  },
-  {
-    id: "sticks-decouverte",
-    name: "Sticks Découverte",
-    subtitle: "Pack découverte YORI Matcha",
-    price: 14.9,
-    mainImage: "/images/sticks découvertes.png",
-  },
-];
+import { Navbar } from "@/components/navbar"
+import { HeroSection } from "@/components/hero-section"
+import { RangesSection } from "@/components/ranges-section"
+import { ProductsSection } from "@/components/product-detail"
+import { PacksSection } from "@/components/packs-section"
+import { AboutSection } from "@/components/about-section"
+import { TerroirSection } from "@/components/terroir-section"
+import { AccessoriesSection } from "@/components/accessories-section"
+import { BlogSection } from "@/components/blog-section"
+import { EducationSection } from "@/components/education-section"
+import { ContactSection } from "@/components/contact-section"
+import { SiteFooter } from "@/components/site-footer"
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-black text-white">
-      <SectionReveal className="max-w-6xl mx-auto px-4 pt-16 pb-10">
-        <h1 className="text-4xl md:text-5xl font-semibold mb-8">
-          Nos Matchas d’Exception
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((p) => (
-            <div key={p.id}>
-              <PackshotImage src={p.mainImage} alt={p.name} style={{ width: "100%", height: "auto" }} />
-              <ProductCard
-                id={p.id}
-                name={p.name}
-                subtitle={p.subtitle}
-                price={p.price}
-                mainImage={p.mainImage}
-              />
-            </div>
-          ))}
-        </div>
-      </SectionReveal>
-      <SectionReveal className="max-w-4xl mx-auto px-4 pb-20">
-        <PreparationSteps />
-      </SectionReveal>
-    </main>
-  );
+    <>
+      <main className="bg-background text-foreground overflow-x-hidden">
+        <HeroSection />
+        <Navbar />
+        <RangesSection />
+        <ProductsSection />
+        <PacksSection />
+        <AboutSection />
+        <TerroirSection />
+        <AccessoriesSection />
+        <BlogSection />
+        <EducationSection />
+        <ContactSection />
+      </main>
+      <SiteFooter />
+    </>
+  )
 }

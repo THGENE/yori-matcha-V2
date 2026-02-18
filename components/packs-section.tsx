@@ -3,6 +3,7 @@
 import { useI18n } from "@/lib/i18n"
 import PackshotImage from "@/components/PackshotImage"
 import { ShoppingBag, Package } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 const packs = [
   {
@@ -34,7 +35,7 @@ const packs = [
     titleKey: "packs.duoGrandCru.title",
     descKey: "packs.duoGrandCru.description",
     containsKey: "packs.duoGrandCru.contains",
-    image: "/images/uji single garden.png",
+    image: "/images/yame heritage.png",
     price: 9.90,
     details: {
       fr: "1 stick Yame Heritage + 1 stick Uji Single Garden",
@@ -45,11 +46,12 @@ const packs = [
 
 export function PacksSection() {
   const { t, locale } = useI18n()
+  const router = useRouter()
 
   return (
-    <section id="packs" className="py-24 lg:py-32 px-4">
+    <section id="packs" className="py-16 lg:py-20 px-4">
       <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 lg:mb-12">
           <h2 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4 text-balance">
             {t("packs.title")}
           </h2>
@@ -99,7 +101,10 @@ export function PacksSection() {
                   </p>
                 </div>
 
-                <button className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm">
+                <button
+                  onClick={() => router.push(`/produit/${pack.id}`)}
+                  className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
+                >
                   <ShoppingBag className="h-4 w-4" />
                   {t("products.addToCart")}
                 </button>

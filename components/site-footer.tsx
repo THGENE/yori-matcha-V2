@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/lib/i18n"
 import { ArrowRight } from "lucide-react"
+import BrandLogo from "@/components/brand-logo"
 
 export function SiteFooter() {
   const { t } = useI18n()
@@ -57,8 +58,7 @@ export function SiteFooter() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="font-serif text-2xl font-bold text-primary">YORI</span>
-              <span className="text-xs tracking-widest text-muted-foreground uppercase">Matcha</span>
+              <BrandLogo variant="footer" />
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
               {t("footer.madeWith")}
@@ -135,8 +135,8 @@ export function SiteFooter() {
           <p className="text-xs text-muted-foreground">
             {"© 2025 YORI Matcha. "}{t("footer.rights")}
           </p>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <span className="font-serif text-primary text-sm">{"有"}</span>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <BrandLogo variant="compact" />
             <span>{t("footer.madeWith")}</span>
           </div>
         </div>
