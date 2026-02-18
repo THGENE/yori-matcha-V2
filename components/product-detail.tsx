@@ -254,9 +254,9 @@ export function ProductsSection() {
   const { t, locale } = useI18n();
 
   return (
-    <SectionReveal id="bestsellers" className="py-24 lg:py-32 px-4 bg-secondary/20">
+    <SectionReveal id="bestsellers" className="py-20 lg:py-24 px-4 bg-secondary/20">
       <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4 text-balance">
             {t("bestsellers.title")}
           </h2>
