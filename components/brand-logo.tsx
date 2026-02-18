@@ -40,7 +40,11 @@ export default function BrandLogo({ variant = "header", className, imageClassNam
         alt="Logo YORI"
         width={36}
         height={36}
-        className={cn("object-contain", styles.image, imageClassName)}
+        className={cn(
+          "rounded-full border border-border/60 bg-card object-cover",
+          styles.image,
+          imageClassName
+        )}
         priority={variant === "header"}
       />
 

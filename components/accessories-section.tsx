@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n"
 import Image from "next/image"
 import { ShoppingBag } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 const accessories = [
   {
@@ -26,9 +27,33 @@ const accessories = [
   },
 ]
 
+const accessoryBackgrounds = [
+  {
+    src: "/images/accessory-chasen-1.jpg",
+    alt: "Chasen - fouet en bambou",
+  },
+  {
+    src: "/images/accessory-chasen-2.jpg",
+    alt: "Chasen vue du dessus",
+  },
+  {
+    src: "/images/accessory-chashaku-1.jpg",
+    alt: "Chashaku - cuillere en bambou",
+  },
+]
+
 export function AccessoriesSection() {
   const { t } = useI18n()
   const router = useRouter()
+  const [activeBackgroundIndex, setActiveBackgroundIndex] = useState(0)
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveBackgroundIndex((current) => (current + 1) % accessoryBackgrounds.length)
+    }, 3500)
+
+    return () => window.clearInterval(intervalId)
+  }, [])
 
   return (
     <section id="accessories" className="py-20 lg:py-24 px-4">
@@ -44,12 +69,17 @@ export function AccessoriesSection() {
 
         {/* Full width image */}
         <div className="relative aspect-[21/9] rounded-sm overflow-hidden mb-12">
-          <Image
-            src="/images/daily-matcha.png"
-            alt={t("accessories.title")}
-            fill
-            className="object-cover"
-          />
+          {accessoryBackgrounds.map((background, index) => (
+            <Image
+              key={background.src}
+              src={background.src}
+              alt={background.alt}
+              fill
+              className={`object-cover transition-opacity duration-1000 ${
+                index === activeBackgroundIndex ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
           <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
         </div>
 

@@ -6,6 +6,7 @@ import { Zap, Shield, Brain, Sparkles, Play } from "lucide-react"
 
 export function EducationSection() {
   const { t } = useI18n()
+  const videoUrl = "https://www.youtube.com/results?search_query=comment+preparer+matcha"
 
   const benefits = [
     { icon: Zap, titleKey: "education.benefits.energy", descKey: "education.benefits.energyDesc" },
@@ -60,12 +61,15 @@ export function EducationSection() {
               className="object-cover"
             />
             <div className="absolute inset-0 bg-background/40 flex items-center justify-center">
-              <button
+              <a
+                href={videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-primary/90 hover:bg-primary text-primary-foreground rounded-full p-4 transition-colors"
                 aria-label="Play video"
               >
                 <Play className="h-8 w-8 fill-current" />
-              </button>
+              </a>
             </div>
           </div>
         </div>

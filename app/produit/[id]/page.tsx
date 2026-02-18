@@ -37,7 +37,7 @@ export default function ProductPage() {
 
   const handleAddToCart = () => {
     addItem({ id: product.id, name: product.name, price: product.price })
-    router.push("/?cart=open")
+    router.push("/")
   }
 
   return (

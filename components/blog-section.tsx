@@ -11,6 +11,7 @@ const articles = [
     excerptKey: "blog.articles.production.excerpt",
     image: "/images/daily-matcha.png",
     hasVideo: true,
+    videoUrl: "https://www.youtube.com/results?search_query=production+matcha+japon",
     date: "2025-12-15",
   },
   {
@@ -19,6 +20,7 @@ const articles = [
     excerptKey: "blog.articles.transformation.excerpt",
     image: "/images/uji single garden.png",
     hasVideo: true,
+    videoUrl: "https://www.youtube.com/results?search_query=transformation+tencha+matcha",
     date: "2025-11-28",
   },
   {
@@ -27,6 +29,7 @@ const articles = [
     excerptKey: "blog.articles.ceremony.excerpt",
     image: "/images/sticks découvertes.png",
     hasVideo: false,
+    videoUrl: "https://www.youtube.com/results?search_query=ceremonie+du+the+japon",
     date: "2025-10-10",
   },
 ]
@@ -48,9 +51,12 @@ export function BlogSection() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {articles.map((article) => (
-            <article
+            <a
               key={article.id}
-              className="bg-card border border-border/50 rounded-sm overflow-hidden hover:border-primary/30 transition-all duration-300 group cursor-pointer"
+              href={article.videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-card border border-border/50 rounded-sm overflow-hidden hover:border-primary/30 transition-all duration-300 group cursor-pointer"
             >
               <div className="relative aspect-video overflow-hidden">
                 <Image
@@ -94,7 +100,7 @@ export function BlogSection() {
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </div>
