@@ -89,7 +89,7 @@ export const catalogProducts: CatalogProduct[] = [
     name: "Pack Decouverte",
     category: "pack",
     image: "/images/Yori Sticks découvertes.png",
-    price: 14.9,
+    price: 2,
     subtitle: {
       fr: "Pack de 5 sticks",
       en: "5-stick discovery pack",

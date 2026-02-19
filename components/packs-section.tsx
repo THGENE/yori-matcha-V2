@@ -15,7 +15,7 @@ const packs = [
     image: "/images/Yori Sticks découvertes.png",
     sticks: 10,
     tier: "mid",
-    price: 14.90,
+    price: 2,
     details: {
       fr: "10 sticks individuels : 6 Daily Matcha Latte + 3 Ceremonial + 1 Grand Cru.",
       en: "10 individual sticks: 6 Daily Matcha Latte + 3 Ceremonial + 1 Grand Cru.",
