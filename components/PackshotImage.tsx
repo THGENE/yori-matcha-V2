@@ -6,20 +6,7 @@ type PackshotImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   flipX?: boolean;
 };
 
-const darkBackdropImages = [
-  "/images/yori uji harmony.png",
-  "/images/uji single garden.png",
-  "/images/yame heritage.png",
-];
-
-function usesDarkBackdrop(src?: string) {
-  if (!src) return false;
-  const normalized = src.toLowerCase();
-  return darkBackdropImages.some((image) => normalized.includes(image));
-}
-
 export default function PackshotImage({ overlay = true, flipX = false, ...props }: PackshotImageProps) {
-  const darkBackdrop = usesDarkBackdrop(typeof props.src === "string" ? props.src : undefined);
   const mergedTransform = `${flipX ? "scaleX(-1)" : ""}${props.style?.transform ? ` ${props.style.transform}` : ""}`.trim();
 
   return (
@@ -34,7 +21,7 @@ export default function PackshotImage({ overlay = true, flipX = false, ...props 
         width: "100%",
         height: "100%",
         overflow: "hidden",
-        background: darkBackdrop ? "#050505" : undefined,
+        background: "#050505",
       }}
     >
       <img
@@ -43,7 +30,7 @@ export default function PackshotImage({ overlay = true, flipX = false, ...props 
           display: "block",
           width: "100%",
           height: "100%",
-          objectFit: darkBackdrop ? "contain" : undefined,
+          objectFit: "contain",
           transform: mergedTransform || undefined,
           ...props.style,
         }}
@@ -55,12 +42,15 @@ export default function PackshotImage({ overlay = true, flipX = false, ...props 
           aria-hidden="true"
           style={{
             position: "absolute",
-            left: 0,
+            right: 0,
             top: 0,
-            width: "100%",
+            width: "58%",
             height: "100%",
             pointerEvents: "none",
             zIndex: 2,
+            objectFit: "cover",
+            opacity: 0.95,
+            filter: "hue-rotate(-8deg) saturate(1.08) brightness(0.94)",
           }}
         />
       )}

@@ -91,6 +91,15 @@
   .text-popover-foreground { color: hsl(var(--popover-foreground)); }
 
   .border-theme { border-color: hsl(var(--border)); }
+
+  .product-visual-shell {
+    background: #050505;
+  }
+
+  .product-powder-overlay {
+    opacity: 0.95;
+    filter: hue-rotate(-8deg) saturate(1.08) brightness(0.94);
+  }
 }
 
 @layer base {

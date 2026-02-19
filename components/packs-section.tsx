@@ -51,12 +51,6 @@ const packs = [
   },
 ]
 
-const tierOverlayClass: Record<string, string> = {
-  mid: "bg-secondary/35",
-  high: "bg-primary/18",
-  ultra: "bg-primary/30",
-}
-
 export function PacksSection() {
   const { t, locale } = useI18n()
   const addItem = useCartStore((s) => s.addItem)
@@ -83,9 +77,8 @@ export function PacksSection() {
                 <PackshotImage
                   src={pack.image || "/placeholder.svg"}
                   alt={t(pack.titleKey)}
-                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                  style={{ objectFit: "contain", width: "100%", height: "100%", padding: "8%" }}
                 />
-                <div className={`absolute inset-0 ${tierOverlayClass[pack.tier]}`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
                   <div className="flex items-center gap-2">

@@ -59,21 +59,19 @@ export default function CartSidebar({ open, onClose }: { open: boolean; onClose:
           ) : (
             items.map((item) => (
               <div key={item.id} className="flex items-start gap-3 border border-border/50 rounded-sm p-3 bg-background/40">
-                <div
-                  className={`relative h-10 w-10 rounded-sm overflow-hidden shrink-0 ${item.id === "yame-velvet" || item.id === "uji-harmony" ? "bg-[#050505]" : "bg-secondary/40"}`}
-                >
+                <div className="product-visual-shell relative h-10 w-10 rounded-sm overflow-hidden shrink-0">
                   <Image
                     src={catalogById[item.id]?.image ?? "/images/logo-y.png"}
                     alt={item.name}
                     fill
-                    className={item.id === "yame-velvet" || item.id === "uji-harmony" ? "object-contain" : "object-cover"}
+                    className="object-contain"
                   />
                   <Image
                     src="/images/matcha-overlay.svg"
                     alt=""
                     aria-hidden
                     fill
-                    className="pointer-events-none object-cover"
+                    className="product-powder-overlay pointer-events-none object-cover object-right w-[58%] left-auto right-0"
                   />
                 </div>
                 <div className="flex-1 min-w-0">

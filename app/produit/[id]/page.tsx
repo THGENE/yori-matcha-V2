@@ -99,7 +99,7 @@ export default function ProductPage() {
         </Link>
 
         <div className="grid lg:grid-cols-2 gap-10 items-start mb-16">
-          <div className="bg-card border border-border/50 rounded-sm overflow-hidden aspect-square p-3 lg:p-6">
+          <div className="product-visual-shell border border-border/50 rounded-sm overflow-hidden aspect-square p-3 lg:p-6">
             <PackshotImage
               src={product.image}
               alt={product.name}
@@ -205,11 +205,11 @@ export default function ProductPage() {
             {similarProducts.map((item) => (
               <div key={item.id} className="bg-card border border-border/50 rounded-sm p-4 h-full flex flex-col">
                 <Link href={`/produit/${item.id}`} className="block">
-                  <div className="relative aspect-square rounded-sm overflow-hidden bg-secondary/30 mb-4">
+                  <div className="product-visual-shell relative aspect-square rounded-sm overflow-hidden mb-4">
                     <PackshotImage
                       src={item.image}
                       alt={item.name}
-                      style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                      style={{ objectFit: "contain", width: "100%", height: "100%", padding: "8%" }}
                     />
                   </div>
                   <h3 className="font-medium text-foreground leading-snug">{item.name}</h3>

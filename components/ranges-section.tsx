@@ -61,11 +61,11 @@ export function RangesSection() {
               id={range.id}
               className="group bg-card border border-border/50 rounded-sm overflow-hidden hover:border-primary/30 transition-all duration-500"
             >
-              <div className="relative aspect-square overflow-hidden">
+              <div className="product-visual-shell relative aspect-square overflow-hidden">
                 <PackshotImage
                   src={productImage || "/placeholder.svg"}
                   alt={t(range.titleKey)}
-                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                  style={{ objectFit: "contain", width: "100%", height: "100%", padding: "8%" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
                 <div className="absolute bottom-4 left-4">

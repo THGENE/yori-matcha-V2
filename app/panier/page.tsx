@@ -384,24 +384,23 @@ export default function PanierPage() {
               items.map((item) => {
                 const product = catalogById[item.id]
                 const lineTotal = item.price * item.quantity
-                const darkBackdrop = item.id === "yame-velvet" || item.id === "uji-harmony"
 
                 return (
                   <article key={item.id} className="grid grid-cols-[1.5fr_0.6fr_0.5fr_0.7fr] gap-4 items-center border-b border-border/70 pb-6">
                     <div className="flex items-center gap-4 min-w-0">
-                      <div className={`relative h-20 w-20 rounded-sm overflow-hidden shrink-0 ${darkBackdrop ? "bg-[#050505]" : "bg-secondary/40"}`}>
+                      <div className="product-visual-shell relative h-20 w-20 rounded-sm overflow-hidden shrink-0">
                         <Image
                           src={product?.image ?? "/images/logo-y.png"}
                           alt={item.name}
                           fill
-                          className={darkBackdrop ? "object-contain" : "object-cover"}
+                          className="object-contain"
                         />
                         <Image
                           src="/images/matcha-overlay.svg"
                           alt=""
                           aria-hidden
                           fill
-                          className="pointer-events-none object-cover"
+                          className="product-powder-overlay pointer-events-none object-cover object-right w-[58%] left-auto right-0"
                         />
                       </div>
                       <div className="min-w-0">
