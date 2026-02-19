@@ -17,8 +17,8 @@ const packs = [
     tier: "mid",
     price: 14.90,
     details: {
-      fr: "2 sticks Ceremonial (Yame Velvet + Uji Harmony) + 2 sticks Grand Cru (Yame Heritage + Uji Single Garden) + 1 stick Daily Matcha Latte",
-      en: "2 Ceremonial sticks (Yame Velvet + Uji Harmony) + 2 Grand Cru sticks (Yame Heritage + Uji Single Garden) + 1 Daily Matcha Latte stick",
+      fr: "10 sticks individuels : 6 Daily Matcha Latte + 3 Ceremonial + 1 Grand Cru.",
+      en: "10 individual sticks: 6 Daily Matcha Latte + 3 Ceremonial + 1 Grand Cru.",
     },
   },
   {
@@ -31,8 +31,8 @@ const packs = [
     tier: "high",
     price: 7.90,
     details: {
-      fr: "1 stick Yame Velvet + 1 stick Uji Harmony",
-      en: "1 Yame Velvet stick + 1 Uji Harmony stick",
+      fr: "4 sticks Ceremonial.",
+      en: "4 Ceremonial sticks.",
     },
   },
   {
@@ -45,8 +45,8 @@ const packs = [
     tier: "ultra",
     price: 9.90,
     details: {
-      fr: "1 stick Yame Heritage + 1 stick Uji Single Garden",
-      en: "1 Yame Heritage stick + 1 Uji Single Garden stick",
+      fr: "2 sticks Grand Cru.",
+      en: "2 Grand Cru sticks.",
     },
   },
 ]
