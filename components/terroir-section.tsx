@@ -28,11 +28,6 @@ export function TerroirSection() {
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/30 to-background/80" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-serif text-4xl md:text-6xl text-primary/80 select-none">
-              {"有"}
-            </span>
-          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
