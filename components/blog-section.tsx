@@ -125,7 +125,7 @@ const articles = [
           fr: "Vidéo IA - dosage, tamisage et fouettage du matcha",
           en: "AI video - matcha dosing, sifting and whisking",
         },
-        videoClassName: "h-full w-full object-cover object-center scale-[1.18] origin-center",
+        videoClassName: "h-full w-full object-cover object-center",
       },
       {
         title: {
@@ -171,7 +171,7 @@ export function BlogSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {articles.map((article) => (
             <article
               key={article.id}
@@ -185,7 +185,7 @@ export function BlogSection() {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
-                    className="h-full w-full border-0 scale-[1.03] origin-center"
+                    className="h-full w-full border-0"
                   />
                 ) : (
                   <>
@@ -268,7 +268,7 @@ export function BlogSection() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
-                  className="h-full w-full border-0 scale-[1.03] origin-center"
+                  className="h-full w-full border-0"
                 />
               </div>
             </div>
