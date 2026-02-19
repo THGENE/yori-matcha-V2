@@ -5,6 +5,7 @@ import Image from "next/image"
 import { ShoppingBag } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useCartStore } from "@/store/cartStore"
+import { useRouter } from "next/navigation"
 
 const accessories = [
   {
@@ -45,6 +46,7 @@ const accessoryBackgrounds = [
 export function AccessoriesSection() {
   const { t } = useI18n()
   const addItem = useCartStore((s) => s.addItem)
+  const router = useRouter()
   const [activeBackgroundIndex, setActiveBackgroundIndex] = useState(0)
 
   useEffect(() => {
@@ -98,8 +100,12 @@ export function AccessoriesSection() {
               <div className="flex items-center justify-between mt-auto">
                 <span className="text-primary font-bold text-lg">{item.price.toFixed(2)}{"€"}</span>
                 <button
-                  onClick={() => addItem({ id: item.id, name: t(item.titleKey), price: item.price })}
-                  className="btn-client flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
+                  type="button"
+                  onClick={() => {
+                    addItem({ id: item.id, name: t(item.titleKey), price: item.price })
+                    router.push("/panier")
+                  }}
+                  className="btn-client flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm cursor-pointer"
                 >
                   <ShoppingBag className="h-4 w-4" />
                   {t("products.addToCart")}

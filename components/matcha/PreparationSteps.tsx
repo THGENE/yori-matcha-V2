@@ -26,7 +26,7 @@ export default function PreparationSteps() {
         <div className="w-full rounded-2xl overflow-hidden mb-12 aspect-video bg-black relative">
           {isPlaying ? (
             <iframe
-              src="https://www.youtube.com/embed/5U1KfL7b6As?autoplay=1&rel=0"
+              src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&rel=0"
               title="Préparation du Matcha - Vidéo premium"
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen

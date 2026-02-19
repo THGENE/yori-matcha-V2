@@ -5,6 +5,7 @@ import { useI18n } from "@/lib/i18n"
 import PackshotImage from "@/components/PackshotImage"
 import { Star, ShoppingBag, ChevronDown, ChevronUp } from "lucide-react"
 import { useCartStore } from "@/store/cartStore"
+import { useRouter } from "next/navigation"
 
 type Product = {
   id: string
@@ -124,6 +125,7 @@ const products: Product[] = [
 function ProductCard({ product }: { product: Product }) {
   const { t, locale } = useI18n()
   const addItem = useCartStore((s) => s.addItem)
+  const router = useRouter()
   const [expanded, setExpanded] = useState(false)
 
   return (
@@ -238,8 +240,12 @@ function ProductCard({ product }: { product: Product }) {
         )}
 
         <button
-          onClick={() => addItem({ id: product.id, name: product.name, price: product.price })}
-          className="btn-client w-full mt-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
+          type="button"
+          onClick={() => {
+            addItem({ id: product.id, name: product.name, price: product.price })
+            router.push("/panier")
+          }}
+          className="btn-client w-full mt-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm cursor-pointer"
         >
           <ShoppingBag className="h-4 w-4" />
           {t("products.addToCart")}

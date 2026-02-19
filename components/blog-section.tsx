@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/lib/i18n"
 import Image from "next/image"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { ArrowRight, Play } from "lucide-react"
 
 const articles = [
@@ -12,7 +12,7 @@ const articles = [
     excerptKey: "blog.articles.production.excerpt",
     image: "/images/daily-matcha.png",
     hasVideo: true,
-    videoUrl: "https://www.youtube.com/embed/5U1KfL7b6As",
+    videoUrl: "https://www.youtube.com/embed/KlFXl--H8eM",
     date: "2025-12-15",
   },
   {
@@ -21,7 +21,7 @@ const articles = [
     excerptKey: "blog.articles.transformation.excerpt",
     image: "/images/uji single garden.png",
     hasVideo: true,
-    videoUrl: "https://www.youtube.com/embed/5U1KfL7b6As",
+    videoUrl: "https://www.youtube.com/embed/o3bHgHpr1fc",
     date: "2025-11-28",
   },
   {
@@ -29,8 +29,8 @@ const articles = [
     titleKey: "blog.articles.ceremony.title",
     excerptKey: "blog.articles.ceremony.excerpt",
     image: "/images/sticks découvertes.png",
-    hasVideo: false,
-    videoUrl: "https://www.youtube.com/results?search_query=ceremonie+du+the+japon",
+    hasVideo: true,
+    videoUrl: "https://www.youtube.com/embed/xD7qUfSOGOE",
     date: "2025-10-10",
   },
 ]
@@ -38,19 +38,10 @@ const articles = [
 export function BlogSection() {
   const { t } = useI18n()
   const [playingVideos, setPlayingVideos] = useState<Record<string, boolean>>({})
-  const iframeRefs = useRef<Record<string, HTMLIFrameElement | null>>({})
 
-  const forceYoutubePlay = (iframe: HTMLIFrameElement | null) => {
-    if (!iframe?.contentWindow) return
-
-    iframe.contentWindow.postMessage(
-      JSON.stringify({ event: "command", func: "mute", args: [] }),
-      "*"
-    )
-    iframe.contentWindow.postMessage(
-      JSON.stringify({ event: "command", func: "playVideo", args: [] }),
-      "*"
-    )
+  const buildEmbedUrl = (videoUrl: string) => {
+    const separator = videoUrl.includes("?") ? "&" : "?"
+    return `${videoUrl}${separator}autoplay=1&mute=1&playsinline=1&rel=0&controls=1&modestbranding=1&cc_load_policy=1&cc_lang_pref=fr&hl=fr&origin=${encodeURIComponent(window.location.origin)}`
   }
 
   return (
@@ -74,13 +65,10 @@ export function BlogSection() {
               <div className="relative aspect-video overflow-hidden">
                 {article.hasVideo && playingVideos[article.id] ? (
                   <iframe
-                    ref={(element) => {
-                      iframeRefs.current[article.id] = element
-                    }}
-                    src={`${article.videoUrl}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=1`}
+                    src={buildEmbedUrl(article.videoUrl)}
                     title={t(article.titleKey)}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    onLoad={() => forceYoutubePlay(iframeRefs.current[article.id])}
+                    referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
                     className="h-full w-full border-0"
                   />
@@ -95,8 +83,11 @@ export function BlogSection() {
                     {article.hasVideo && (
                       <button
                         type="button"
-                        onClick={() => setPlayingVideos((prev) => ({ ...prev, [article.id]: true }))}
-                        className="absolute inset-0 bg-background/25 hover:bg-background/35 flex items-center justify-center transition-colors"
+                        onClick={(event) => {
+                          event.stopPropagation()
+                          setPlayingVideos((prev) => ({ ...prev, [article.id]: true }))
+                        }}
+                        className="absolute inset-0 z-10 bg-background/25 hover:bg-background/35 flex items-center justify-center transition-colors"
                         aria-label={`Play ${t(article.titleKey)}`}
                       >
                         <span className="bg-primary/90 rounded-full p-3 shadow-lg">

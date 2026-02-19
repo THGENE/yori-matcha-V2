@@ -1,32 +1,56 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20",
-});
-
 export async function POST(req: Request) {
-  const { items, shippingMethod } = await req.json();
+  try {
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+    const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
 
-  // Total produits
-  const amountProducts = items.reduce(
-    (sum: number, item: any) => sum + item.price * item.quantity,
-    0
-  );
-  const amountProductsInCents = Math.round(amountProducts * 100);
+    if (!secretKey || !publishableKey) {
+      return NextResponse.json(
+        { error: "Configuration Stripe manquante (clés API)." },
+        { status: 500 }
+      );
+    }
 
-  // Frais Chronopost
-  const shippingCost =
-    shippingMethod === "chronopost_express" ? 1290 : 790; // en centimes
+    const stripe = new Stripe(secretKey, {
+      apiVersion: "2024-06-20",
+    });
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: amountProductsInCents + shippingCost,
-    currency: "eur",
-    automatic_payment_methods: { enabled: true }, // Apple Pay + CB
-  });
+    const { items, shippingMethod } = await req.json();
 
-  return NextResponse.json({
-    clientSecret: paymentIntent.client_secret,
-    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
-  });
+    if (!Array.isArray(items) || items.length === 0) {
+      return NextResponse.json(
+        { error: "Panier invalide pour initialiser le paiement." },
+        { status: 400 }
+      );
+    }
+
+    const amountProducts = items.reduce(
+      (sum: number, item: any) => sum + item.price * item.quantity,
+      0
+    );
+    const amountProductsInCents = Math.round(amountProducts * 100);
+
+    const shippingCost =
+      shippingMethod === "chronopost_express" ? 1290 : 790;
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amountProductsInCents + shippingCost,
+      currency: "eur",
+      automatic_payment_methods: { enabled: true },
+    });
+
+    return NextResponse.json({
+      clientSecret: paymentIntent.client_secret,
+      publishableKey,
+    });
+  } catch (error: any) {
+    const message =
+      error?.type === "StripeAuthenticationError"
+        ? "Clé Stripe invalide. Vérifie STRIPE_SECRET_KEY dans .env.local."
+        : error?.message || "Erreur Stripe lors de l'initialisation du paiement.";
+
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }

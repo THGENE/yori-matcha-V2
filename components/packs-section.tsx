@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n"
 import PackshotImage from "@/components/PackshotImage"
 import { ShoppingBag, Package } from "lucide-react"
 import { useCartStore } from "@/store/cartStore"
+import { useRouter } from "next/navigation"
 
 const packs = [
   {
@@ -47,6 +48,7 @@ const packs = [
 export function PacksSection() {
   const { t, locale } = useI18n()
   const addItem = useCartStore((s) => s.addItem)
+  const router = useRouter()
 
   return (
     <section id="packs" className="pt-16 pb-20 lg:pt-20 lg:pb-24 px-4">
@@ -102,8 +104,12 @@ export function PacksSection() {
                 </div>
 
                 <button
-                  onClick={() => addItem({ id: pack.id, name: t(pack.titleKey), price: pack.price })}
-                  className="btn-client w-full mt-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
+                  type="button"
+                  onClick={() => {
+                    addItem({ id: pack.id, name: t(pack.titleKey), price: pack.price })
+                    router.push("/panier")
+                  }}
+                  className="btn-client w-full mt-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm cursor-pointer"
                 >
                   <ShoppingBag className="h-4 w-4" />
                   {t("products.addToCart")}

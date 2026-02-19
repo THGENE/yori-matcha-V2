@@ -19,6 +19,20 @@ type Account = {
   password: string
 }
 
+type CustomerOrder = {
+  id: string
+  date: string
+  total: number
+  status: "Payée" | "Expédiée" | "Livrée"
+}
+
+type CustomerShipment = {
+  id: string
+  carrier: string
+  eta: string
+  status: "En préparation" | "En transit" | "En livraison"
+}
+
 type CheckoutStep = "auth" | "payment"
 type AuthMode = "login" | "register"
 
@@ -34,8 +48,13 @@ export default function PanierPage() {
   const [authLoading, setAuthLoading] = useState(false)
   const [stripeLoading, setStripeLoading] = useState(false)
   const [stripeError, setStripeError] = useState("")
+  const [authSuccess, setAuthSuccess] = useState("")
   const [stripeClientSecret, setStripeClientSecret] = useState("")
   const [stripePublishableKey, setStripePublishableKey] = useState("")
+  const [sessionEmail, setSessionEmail] = useState("")
+  const [sessionName, setSessionName] = useState("")
+  const [customerOrders, setCustomerOrders] = useState<CustomerOrder[]>([])
+  const [customerShipments, setCustomerShipments] = useState<CustomerShipment[]>([])
 
   const [loginEmail, setLoginEmail] = useState("")
   const [loginPassword, setLoginPassword] = useState("")
@@ -49,6 +68,8 @@ export default function PanierPage() {
 
   const storageUsersKey = "yori-users-v1"
   const storageSessionKey = "yori-session-v1"
+  const storageOrdersKey = "yori-orders-v1"
+  const storageShipmentsKey = "yori-shipments-v1"
   const demoAccount: Account = {
     title: "M",
     firstName: "Client",
@@ -100,6 +121,52 @@ export default function PanierPage() {
     if (!hasDemo) {
       window.localStorage.setItem(storageUsersKey, JSON.stringify([...parsedUsers, demoAccount]))
     }
+
+    const rawOrders = window.localStorage.getItem(storageOrdersKey)
+    let parsedOrders: Record<string, CustomerOrder[]> = {}
+    if (rawOrders) {
+      try {
+        parsedOrders = JSON.parse(rawOrders) as Record<string, CustomerOrder[]>
+      } catch {
+        parsedOrders = {}
+      }
+    }
+
+    if (!parsedOrders[demoAccount.email]) {
+      parsedOrders[demoAccount.email] = [
+        { id: "CMD-240118", date: "18/01/2026", total: 64.8, status: "Livrée" },
+        { id: "CMD-240129", date: "29/01/2026", total: 42.9, status: "Expédiée" },
+      ]
+      window.localStorage.setItem(storageOrdersKey, JSON.stringify(parsedOrders))
+    }
+
+    const rawShipments = window.localStorage.getItem(storageShipmentsKey)
+    let parsedShipments: Record<string, CustomerShipment[]> = {}
+    if (rawShipments) {
+      try {
+        parsedShipments = JSON.parse(rawShipments) as Record<string, CustomerShipment[]>
+      } catch {
+        parsedShipments = {}
+      }
+    }
+
+    if (!parsedShipments[demoAccount.email]) {
+      parsedShipments[demoAccount.email] = [
+        { id: "TRK-992114", carrier: "Colissimo", eta: "Livraison estimée: demain", status: "En transit" },
+      ]
+      window.localStorage.setItem(storageShipmentsKey, JSON.stringify(parsedShipments))
+    }
+
+    const rawSession = window.localStorage.getItem(storageSessionKey)
+    if (rawSession) {
+      try {
+        const parsedSession = JSON.parse(rawSession) as { email?: string }
+        if (parsedSession.email) {
+          setSessionEmail(parsedSession.email)
+        }
+      } catch {
+      }
+    }
   }, [])
 
   const getStoredUsers = (): Account[] => {
@@ -118,6 +185,36 @@ export default function PanierPage() {
     window.localStorage.setItem(storageUsersKey, JSON.stringify(users))
   }
 
+  const loadCustomerSpace = (email: string) => {
+    if (typeof window === "undefined") return
+
+    const users = getStoredUsers()
+    const account = users.find((user) => user.email.toLowerCase() === email.toLowerCase())
+    setSessionName(account ? `${account.firstName} ${account.lastName}`.trim() : email)
+
+    const rawOrders = window.localStorage.getItem(storageOrdersKey)
+    let parsedOrders: Record<string, CustomerOrder[]> = {}
+    if (rawOrders) {
+      try {
+        parsedOrders = JSON.parse(rawOrders) as Record<string, CustomerOrder[]>
+      } catch {
+        parsedOrders = {}
+      }
+    }
+    setCustomerOrders(parsedOrders[email] ?? [])
+
+    const rawShipments = window.localStorage.getItem(storageShipmentsKey)
+    let parsedShipments: Record<string, CustomerShipment[]> = {}
+    if (rawShipments) {
+      try {
+        parsedShipments = JSON.parse(rawShipments) as Record<string, CustomerShipment[]>
+      } catch {
+        parsedShipments = {}
+      }
+    }
+    setCustomerShipments(parsedShipments[email] ?? [])
+  }
+
   const startStripeCheckout = async () => {
     setStripeLoading(true)
     setStripeError("")
@@ -133,7 +230,8 @@ export default function PanierPage() {
       })
 
       if (!response.ok) {
-        throw new Error("Impossible d'initialiser le paiement.")
+        const errorPayload = await response.json().catch(() => null)
+        throw new Error(errorPayload?.error ?? "Impossible d'initialiser le paiement.")
       }
 
       const data = await response.json()
@@ -155,6 +253,7 @@ export default function PanierPage() {
     event.preventDefault()
     setAuthLoading(true)
     setAuthError("")
+    setAuthSuccess("")
 
     const users = getStoredUsers()
     const account = users.find(
@@ -168,6 +267,9 @@ export default function PanierPage() {
     }
 
     window.localStorage.setItem(storageSessionKey, JSON.stringify({ email: account.email }))
+    setSessionEmail(account.email)
+    loadCustomerSpace(account.email)
+    setAuthSuccess("Connexion réussie. Redirection vers le paiement...")
     await startStripeCheckout()
     setAuthLoading(false)
   }
@@ -176,6 +278,7 @@ export default function PanierPage() {
     event.preventDefault()
     setAuthLoading(true)
     setAuthError("")
+    setAuthSuccess("")
 
     if (!registerFirstName || !registerLastName || !registerEmail || !registerPassword) {
       setAuthError("Merci de remplir tous les champs obligatoires.")
@@ -211,6 +314,9 @@ export default function PanierPage() {
 
     persistUsers([...users, newAccount])
     window.localStorage.setItem(storageSessionKey, JSON.stringify({ email: newAccount.email }))
+    setSessionEmail(newAccount.email)
+    loadCustomerSpace(newAccount.email)
+    setAuthSuccess("Compte créé avec succès. Redirection vers le paiement...")
     await startStripeCheckout()
     setAuthLoading(false)
   }
@@ -221,6 +327,10 @@ export default function PanierPage() {
     setCheckoutStep("auth")
     setStripeError("")
     setAuthError("")
+    setAuthSuccess("")
+    if (sessionEmail) {
+      loadCustomerSpace(sessionEmail)
+    }
   }
 
   return (
@@ -377,22 +487,36 @@ export default function PanierPage() {
 
             {checkoutStep === "auth" ? (
               <div className="p-5 md:p-7">
-                <div className="grid grid-cols-2 mb-6 border border-border rounded-sm overflow-hidden">
-                  <button
-                    onClick={() => setAuthMode("login")}
-                    className={`btn-client btn-client--soft py-3 text-sm md:text-base font-medium ${authMode === "login" ? "bg-secondary" : "bg-background"}`}
-                  >
-                    ME CONNECTER
-                  </button>
-                  <button
-                    onClick={() => setAuthMode("register")}
-                    className={`btn-client btn-client--soft py-3 text-sm md:text-base font-medium ${authMode === "register" ? "bg-secondary" : "bg-background"}`}
-                  >
-                    CRÉER MON COMPTE
-                  </button>
-                </div>
+                {stripeError && (
+                  <p className="mb-4 rounded-sm border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-500">
+                    {stripeError}
+                  </p>
+                )}
+                {stripeLoading && (
+                  <div className="mb-4 rounded-sm border border-primary/30 bg-primary/10 px-3 py-2">
+                    <p className="text-sm text-primary animate-pulse">
+                      Initialisation du paiement sécurisé en cours...
+                    </p>
+                  </div>
+                )}
+                {!sessionEmail ? (
+                  <>
+                    <div className="grid grid-cols-2 mb-6 border border-border rounded-sm overflow-hidden">
+                      <button
+                        onClick={() => setAuthMode("login")}
+                        className={`btn-client btn-client--soft py-3 text-sm md:text-base font-medium ${authMode === "login" ? "bg-secondary" : "bg-background"}`}
+                      >
+                        ME CONNECTER
+                      </button>
+                      <button
+                        onClick={() => setAuthMode("register")}
+                        className={`btn-client btn-client--soft py-3 text-sm md:text-base font-medium ${authMode === "register" ? "bg-secondary" : "bg-background"}`}
+                      >
+                        CRÉER MON COMPTE
+                      </button>
+                    </div>
 
-                {authMode === "login" ? (
+                    {authMode === "login" ? (
                   <form className="space-y-4" onSubmit={handleLogin}>
                     <div>
                       <label className="text-sm font-medium">Email</label>
@@ -512,6 +636,77 @@ export default function PanierPage() {
                       {authLoading || stripeLoading ? "Chargement..." : "Créer mon compte et payer"}
                     </button>
                   </form>
+                )}
+                  </>
+                ) : (
+                  <div className="space-y-6">
+                    <div className="rounded-sm border border-primary/40 bg-primary/10 p-4">
+                      <p className="text-sm md:text-base font-medium">
+                        Bonjour {sessionName || sessionEmail}, vous êtes connecté.
+                      </p>
+                      {authSuccess && <p className="text-sm text-muted-foreground mt-1">{authSuccess}</p>}
+                    </div>
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="rounded-sm border border-border bg-background p-4">
+                        <h3 className="text-lg font-semibold mb-3">Mes commandes passées</h3>
+                        {customerOrders.length === 0 ? (
+                          <p className="text-sm text-muted-foreground">Aucune commande passée pour le moment.</p>
+                        ) : (
+                          <ul className="space-y-3">
+                            {customerOrders.map((order) => (
+                              <li key={order.id} className="border border-border/70 rounded-sm p-3">
+                                <p className="text-sm font-medium">{order.id}</p>
+                                <p className="text-xs text-muted-foreground">{order.date} • {order.status}</p>
+                                <p className="text-sm text-primary mt-1">{order.total.toFixed(2)} €</p>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+
+                      <div className="rounded-sm border border-border bg-background p-4">
+                        <h3 className="text-lg font-semibold mb-3">Livraisons en cours</h3>
+                        {customerShipments.length === 0 ? (
+                          <p className="text-sm text-muted-foreground">Aucune livraison en cours.</p>
+                        ) : (
+                          <ul className="space-y-3">
+                            {customerShipments.map((shipment) => (
+                              <li key={shipment.id} className="border border-border/70 rounded-sm p-3">
+                                <p className="text-sm font-medium">{shipment.id} • {shipment.carrier}</p>
+                                <p className="text-xs text-muted-foreground">{shipment.status}</p>
+                                <p className="text-sm text-primary mt-1">{shipment.eta}</p>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          window.localStorage.removeItem(storageSessionKey)
+                          setSessionEmail("")
+                          setSessionName("")
+                          setCustomerOrders([])
+                          setCustomerShipments([])
+                        }}
+                        className="btn-client btn-client--brand flex-1 border border-primary text-primary py-3 rounded-sm font-medium"
+                      >
+                        Changer de compte
+                      </button>
+                      <button
+                        type="button"
+                        disabled={stripeLoading}
+                        onClick={startStripeCheckout}
+                        className="btn-client flex-1 bg-primary text-primary-foreground py-3 rounded-sm font-medium disabled:opacity-50"
+                      >
+                        {stripeLoading ? "Chargement..." : "Continuer vers le paiement"}
+                      </button>
+                    </div>
+                  </div>
                 )}
               </div>
             ) : (

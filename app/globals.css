@@ -95,39 +95,39 @@
 
 @layer base {
   :root {
-    --background: 0 0% 5%;
-    --foreground: 45 20% 90%;
-    --card: 0 0% 8%;
-    --card-foreground: 45 20% 90%;
-    --popover: 0 0% 8%;
-    --popover-foreground: 45 20% 90%;
-    --primary: 43 60% 50%;
-    --primary-foreground: 0 0% 5%;
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 45 20% 90%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 45 10% 55%;
-    --accent: 100 30% 35%;
-    --accent-foreground: 45 20% 95%;
+    --background: 220 18% 10%;
+    --foreground: 210 20% 94%;
+    --card: 220 16% 14%;
+    --card-foreground: 210 20% 94%;
+    --popover: 220 16% 14%;
+    --popover-foreground: 210 20% 94%;
+    --primary: 163 36% 42%;
+    --primary-foreground: 210 30% 97%;
+    --secondary: 220 14% 18%;
+    --secondary-foreground: 210 16% 90%;
+    --muted: 220 12% 22%;
+    --muted-foreground: 210 10% 66%;
+    --accent: 191 35% 38%;
+    --accent-foreground: 210 30% 96%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 43 60% 50%;
-    --chart-1: 43 60% 50%;
-    --chart-2: 100 30% 35%;
-    --chart-3: 0 0% 60%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 100 40% 45%;
+    --border: 220 14% 24%;
+    --input: 220 14% 24%;
+    --ring: 163 36% 42%;
+    --chart-1: 163 36% 42%;
+    --chart-2: 191 35% 38%;
+    --chart-3: 223 19% 55%;
+    --chart-4: 171 41% 52%;
+    --chart-5: 204 33% 50%;
     --radius: 0.25rem;
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 45 20% 90%;
-    --sidebar-primary: 43 60% 50%;
-    --sidebar-primary-foreground: 0 0% 5%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 45 20% 90%;
-    --sidebar-border: 0 0% 18%;
-    --sidebar-ring: 43 60% 50%;
+    --sidebar-background: 220 18% 10%;
+    --sidebar-foreground: 210 20% 94%;
+    --sidebar-primary: 163 36% 42%;
+    --sidebar-primary-foreground: 210 30% 97%;
+    --sidebar-accent: 220 14% 18%;
+    --sidebar-accent-foreground: 210 16% 90%;
+    --sidebar-border: 220 14% 24%;
+    --sidebar-ring: 163 36% 42%;
   }
 }
 
@@ -151,14 +151,14 @@ html {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(0 0% 5%);
+  background: hsl(var(--background));
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(43 60% 50% / 0.3);
+  background: hsl(var(--primary) / 0.35);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(43 60% 50% / 0.5);
+  background: hsl(var(--primary) / 0.55);
 }
 
 /* Animation utilities */

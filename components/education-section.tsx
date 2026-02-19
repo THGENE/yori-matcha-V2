@@ -2,27 +2,14 @@
 
 import { useI18n } from "@/lib/i18n"
 import Image from "next/image"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { Zap, Shield, Brain, Sparkles, Play } from "lucide-react"
 
 export function EducationSection() {
   const { t } = useI18n()
   const [isPlaying, setIsPlaying] = useState(false)
-  const videoRef = useRef<HTMLIFrameElement | null>(null)
-  const videoUrl = "https://www.youtube.com/embed/5U1KfL7b6As?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=1"
-
-  const forceYoutubePlay = () => {
-    if (!videoRef.current?.contentWindow) return
-
-    videoRef.current.contentWindow.postMessage(
-      JSON.stringify({ event: "command", func: "mute", args: [] }),
-      "*"
-    )
-    videoRef.current.contentWindow.postMessage(
-      JSON.stringify({ event: "command", func: "playVideo", args: [] }),
-      "*"
-    )
-  }
+  const videoUrl =
+    "https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&mute=1&playsinline=1&rel=0&controls=1&modestbranding=1"
 
   const benefits = [
     { icon: Zap, titleKey: "education.benefits.energy", descKey: "education.benefits.energyDesc" },
@@ -72,11 +59,10 @@ export function EducationSection() {
           <div className="relative aspect-video rounded-sm overflow-hidden bg-card border border-border/50">
             {isPlaying ? (
               <iframe
-                ref={videoRef}
                 src={videoUrl}
                 title="Matcha preparation video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                onLoad={forceYoutubePlay}
+                referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
                 className="h-full w-full border-0"
               />
@@ -91,7 +77,7 @@ export function EducationSection() {
                 <button
                   type="button"
                   onClick={() => setIsPlaying(true)}
-                  className="absolute inset-0 bg-background/40 flex items-center justify-center"
+                  className="absolute inset-0 z-10 bg-background/40 flex items-center justify-center"
                   aria-label="Play video"
                 >
                   <span className="bg-primary/90 hover:bg-primary text-primary-foreground rounded-full p-4 transition-colors">

@@ -20,7 +20,7 @@ export default function AddToCartButton({ id, name, price, redirectToProduct = t
   const handleClick = () => {
     addItem({ id, name, price });
     if (redirectToProduct) {
-      router.push(`/produit/${id}`);
+      router.push("/panier");
     }
     setClicked(true);
     setTimeout(() => setClicked(false), 700);

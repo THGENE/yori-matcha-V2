@@ -29,13 +29,6 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-5xl px-4 text-center pt-20">
-        {/* Japanese character */}
-        <div className="mb-8 animate-fade-in">
-          <span className="text-8xl md:text-9xl font-serif text-primary/40 select-none">
-            {"有"}
-          </span>
-        </div>
-
         <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 animate-fade-in-up text-balance">
           {t("hero.title")}
         </h1>
