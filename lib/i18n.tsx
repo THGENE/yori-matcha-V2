@@ -157,7 +157,7 @@ const translations: Record<Locale, Translations> = {
       },
     },
     blog: {
-      title: "Journal",
+      title: "Blog",
       subtitle: "Explorez l'univers du matcha",
       readMore: "Lire la suite",
       articles: {
@@ -383,7 +383,7 @@ const translations: Record<Locale, Translations> = {
       },
     },
     blog: {
-      title: "Journal",
+      title: "Blog",
       subtitle: "Explore the world of matcha",
       readMore: "Read more",
       articles: {

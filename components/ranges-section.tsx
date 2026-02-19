@@ -3,10 +3,12 @@
 import { useI18n } from "@/lib/i18n"
 import PackshotImage from "@/components/PackshotImage"
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 const ranges = [
   {
     id: "ceremonial",
+    productId: "yame-velvet",
     titleKey: "ranges.ceremonial.title",
     descKey: "ranges.ceremonial.description",
     productsKey: "ranges.ceremonial.products",
@@ -16,6 +18,7 @@ const ranges = [
   },
   {
     id: "grandcru",
+    productId: "yame-heritage",
     titleKey: "ranges.grandCru.title",
     descKey: "ranges.grandCru.description",
     productsKey: "ranges.grandCru.products",
@@ -25,6 +28,7 @@ const ranges = [
   },
   {
     id: "daily",
+    productId: "daily-matcha",
     titleKey: "ranges.daily.title",
     descKey: "ranges.daily.description",
     productsKey: "ranges.daily.products",
@@ -79,10 +83,13 @@ export function RangesSection() {
                 <p className="text-primary text-sm font-medium mb-4">
                   {t(range.productsKey)}
                 </p>
-                <button className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors group/btn">
+                <Link
+                  href={`/produit/${range.productId}`}
+                  className="inline-flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors group/btn"
+                >
                   {t("products.discover")}
                   <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                </Link>
               </div>
             </div>
           ))}
