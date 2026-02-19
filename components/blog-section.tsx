@@ -125,7 +125,7 @@ const articles = [
           fr: "Vidéo IA - dosage, tamisage et fouettage du matcha",
           en: "AI video - matcha dosing, sifting and whisking",
         },
-        videoClassName: "h-full w-full object-cover object-center",
+        videoClassName: "h-full w-full object-cover object-[18%_center] scale-[1.22]",
       },
       {
         title: {
