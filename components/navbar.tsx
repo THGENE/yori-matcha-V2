@@ -153,7 +153,7 @@ export function Navbar() {
               <div className="flex flex-col sm:flex-row gap-4 xl:col-span-8">
                 <button
                   onClick={closeAddFeedback}
-                  className="flex-1 border border-primary text-primary px-4 py-4 md:py-5 text-base md:text-lg font-medium tracking-wide uppercase hover:bg-primary/10 transition-colors rounded-md"
+                  className="btn-client flex-1 border border-primary text-primary px-4 py-4 md:py-5 text-base md:text-lg font-medium tracking-wide uppercase hover:bg-primary/10 transition-colors rounded-md"
                 >
                   {locale === "fr" ? "Continuer mes achats" : "Continue shopping"}
                 </button>
@@ -162,7 +162,7 @@ export function Navbar() {
                     closeAddFeedback()
                     router.push("/panier")
                   }}
-                  className="flex-1 bg-primary text-primary-foreground px-4 py-4 md:py-5 text-base md:text-lg font-medium tracking-wide uppercase hover:bg-primary/90 transition-colors rounded-md"
+                  className="btn-client flex-1 bg-primary text-primary-foreground px-4 py-4 md:py-5 text-base md:text-lg font-medium tracking-wide uppercase hover:bg-primary/90 transition-colors rounded-md"
                 >
                   {locale === "fr" ? "Finaliser ma commande" : "Checkout"}
                 </button>
@@ -242,7 +242,7 @@ export function Navbar() {
               <span className="uppercase font-medium">{locale === "fr" ? "EN" : "FR"}</span>
             </button>
 
-            <button className="hidden lg:flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2 text-sm font-medium tracking-wide hover:bg-primary/90 transition-colors rounded-sm" onClick={() => scrollTo("packs")}>
+            <button className="btn-client hidden lg:flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2 text-sm font-medium tracking-wide hover:bg-primary/90 transition-colors rounded-sm" onClick={() => scrollTo("packs")}>
               <ShoppingBag className="h-4 w-4" />
               {t("nav.shop")}
             </button>
@@ -348,7 +348,7 @@ export function Navbar() {
             <button onClick={() => scrollTo("education")} className="block w-full text-left px-2 py-3 text-sm text-foreground/80 hover:text-primary transition-colors">{t("nav.education")}</button>
             <button onClick={() => scrollTo("contact")} className="block w-full text-left px-2 py-3 text-sm text-foreground/80 hover:text-primary transition-colors">{t("nav.contact")}</button>
             <div className="pt-2">
-              <button onClick={() => scrollTo("packs")} className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-3 text-sm font-medium tracking-wide hover:bg-primary/90 transition-colors rounded-sm">
+              <button onClick={() => scrollTo("packs")} className="btn-client w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-3 text-sm font-medium tracking-wide hover:bg-primary/90 transition-colors rounded-sm">
                 <ShoppingBag className="h-4 w-4" />
                 {t("nav.shop")}
               </button>

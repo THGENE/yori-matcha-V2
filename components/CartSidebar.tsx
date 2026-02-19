@@ -45,7 +45,7 @@ export default function CartSidebar({ open, onClose }: { open: boolean; onClose:
           <span>{total.toFixed(2)} €</span>
         </div>
         <button
-          className="w-full bg-primary text-primary-foreground py-3 rounded font-medium hover:bg-primary/90 transition mb-2"
+          className="btn-client w-full bg-primary text-primary-foreground py-3 rounded font-medium hover:bg-primary/90 transition mb-2"
           disabled={items.length===0}
           onClick={() => {
             onClose();
@@ -54,7 +54,7 @@ export default function CartSidebar({ open, onClose }: { open: boolean; onClose:
         >
           Finaliser la commande
         </button>
-        <button className="w-full text-xs text-muted-foreground hover:underline" onClick={clear} disabled={items.length===0}>
+        <button className="btn-client w-full text-xs text-muted-foreground hover:underline" onClick={clear} disabled={items.length===0}>
           Vider le panier
         </button>
       </div>

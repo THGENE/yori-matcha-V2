@@ -103,7 +103,7 @@ export function PacksSection() {
 
                 <button
                   onClick={() => addItem({ id: pack.id, name: t(pack.titleKey), price: pack.price })}
-                  className="w-full mt-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
+                  className="btn-client w-full mt-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
                 >
                   <ShoppingBag className="h-4 w-4" />
                   {t("products.addToCart")}

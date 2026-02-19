@@ -327,7 +327,7 @@ export default function PanierPage() {
               <button
                 disabled={items.length === 0}
                 onClick={openCheckoutModal}
-                className="w-full mt-5 bg-primary text-primary-foreground py-3 rounded-sm font-medium uppercase tracking-wide disabled:opacity-50"
+                className="btn-client w-full mt-5 bg-primary text-primary-foreground py-3 rounded-sm font-medium uppercase tracking-wide disabled:opacity-50"
               >
                 COMMANDER
               </button>
@@ -380,13 +380,13 @@ export default function PanierPage() {
                 <div className="grid grid-cols-2 mb-6 border border-border rounded-sm overflow-hidden">
                   <button
                     onClick={() => setAuthMode("login")}
-                    className={`py-3 text-sm md:text-base font-medium ${authMode === "login" ? "bg-secondary" : "bg-background"}`}
+                    className={`btn-client py-3 text-sm md:text-base font-medium ${authMode === "login" ? "bg-secondary" : "bg-background"}`}
                   >
                     ME CONNECTER
                   </button>
                   <button
                     onClick={() => setAuthMode("register")}
-                    className={`py-3 text-sm md:text-base font-medium ${authMode === "register" ? "bg-secondary" : "bg-background"}`}
+                    className={`btn-client py-3 text-sm md:text-base font-medium ${authMode === "register" ? "bg-secondary" : "bg-background"}`}
                   >
                     CRÉER MON COMPTE
                   </button>
@@ -420,7 +420,7 @@ export default function PanierPage() {
                     <button
                       type="submit"
                       disabled={authLoading || stripeLoading}
-                      className="w-full bg-primary text-primary-foreground py-3 rounded-sm font-medium disabled:opacity-50"
+                      className="btn-client w-full bg-primary text-primary-foreground py-3 rounded-sm font-medium disabled:opacity-50"
                     >
                       {authLoading || stripeLoading ? "Chargement..." : "Se connecter et payer"}
                     </button>
@@ -507,7 +507,7 @@ export default function PanierPage() {
                     <button
                       type="submit"
                       disabled={authLoading || stripeLoading}
-                      className="w-full bg-primary text-primary-foreground py-3 rounded-sm font-medium disabled:opacity-50"
+                      className="btn-client w-full bg-primary text-primary-foreground py-3 rounded-sm font-medium disabled:opacity-50"
                     >
                       {authLoading || stripeLoading ? "Chargement..." : "Créer mon compte et payer"}
                     </button>

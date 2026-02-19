@@ -99,7 +99,7 @@ export function AccessoriesSection() {
                 <span className="text-primary font-bold text-lg">{item.price.toFixed(2)}{"€"}</span>
                 <button
                   onClick={() => addItem({ id: item.id, name: t(item.titleKey), price: item.price })}
-                  className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
+                  className="btn-client flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
                 >
                   <ShoppingBag className="h-4 w-4" />
                   {t("products.addToCart")}

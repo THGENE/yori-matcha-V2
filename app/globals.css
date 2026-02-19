@@ -7,6 +7,25 @@
     text-wrap: balance;
   }
 
+  .btn-client {
+    cursor: pointer;
+    min-height: 44px;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.08s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-client:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
+
+  .btn-client:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .btn-client:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring) / 0.6), 0 0 0 4px hsl(var(--background));
+  }
+
   /* Mappings from CSS variables to simple utility classes */
   .bg-background { background-color: hsl(var(--background)); }
   .text-foreground { color: hsl(var(--foreground)); }

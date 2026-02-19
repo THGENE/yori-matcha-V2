@@ -39,7 +39,7 @@ export default function CheckoutForm() {
 
       <button
         disabled={!stripe || loading}
-        className="w-full bg-primary text-primary-foreground py-3 rounded-md font-medium hover:bg-primary/90 transition disabled:opacity-50"
+        className="btn-client w-full bg-primary text-primary-foreground py-3 rounded-md font-medium hover:bg-primary/90 transition disabled:opacity-50"
       >
         {loading ? "Paiement en cours..." : "Payer maintenant"}
       </button>
