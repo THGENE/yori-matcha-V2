@@ -42,7 +42,7 @@ export function SiteFooter() {
               />
               <button
                 type="submit"
-                className="bg-primary text-primary-foreground px-6 py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm flex items-center gap-2"
+                className="btn-client bg-primary text-primary-foreground px-6 py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm flex items-center gap-2"
               >
                 {t("footer.newsletter.subscribe")}
                 <ArrowRight className="h-4 w-4" />

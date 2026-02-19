@@ -54,7 +54,7 @@ export default function CartSidebar({ open, onClose }: { open: boolean; onClose:
         >
           Finaliser la commande
         </button>
-        <button className="btn-client w-full text-xs text-muted-foreground hover:underline" onClick={clear} disabled={items.length===0}>
+        <button className="btn-client btn-client--text w-full text-xs text-muted-foreground hover:underline" onClick={clear} disabled={items.length===0}>
           Vider le panier
         </button>
       </div>

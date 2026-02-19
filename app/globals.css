@@ -10,15 +10,55 @@
   .btn-client {
     cursor: pointer;
     min-height: 44px;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.08s ease, filter 0.2s ease, box-shadow 0.2s ease;
+    --btn-hover-bg: hsl(var(--foreground));
+    --btn-hover-text: hsl(var(--background));
+    --btn-hover-border: var(--btn-hover-bg);
+    --btn-hover-shadow: 0 8px 20px hsl(var(--foreground) / 0.12);
+    --btn-active-shadow: 0 2px 8px hsl(var(--foreground) / 0.12);
+    transition: background-color 0.16s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.16s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.16s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.16s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: background-color, color, border-color, transform;
+  }
+
+  .btn-client--brand {
+    --btn-hover-bg: hsl(var(--primary));
+    --btn-hover-text: hsl(var(--primary-foreground));
+    --btn-hover-border: hsl(var(--primary));
+    --btn-hover-shadow: 0 8px 20px hsl(var(--primary) / 0.25);
+    --btn-active-shadow: 0 2px 8px hsl(var(--primary) / 0.2);
+  }
+
+  .btn-client--soft {
+    --btn-hover-bg: hsl(var(--secondary));
+    --btn-hover-text: hsl(var(--foreground));
+    --btn-hover-border: hsl(var(--border));
+    --btn-hover-shadow: 0 6px 14px hsl(var(--foreground) / 0.08);
+    --btn-active-shadow: 0 2px 6px hsl(var(--foreground) / 0.08);
+  }
+
+  .btn-client--text {
+    --btn-hover-bg: transparent;
+    --btn-hover-text: hsl(var(--primary));
+    --btn-hover-border: transparent;
+    --btn-hover-shadow: none;
+    --btn-active-shadow: none;
   }
 
   .btn-client:hover:not(:disabled) {
-    filter: brightness(1.08);
+    background-color: var(--btn-hover-bg) !important;
+    color: var(--btn-hover-text) !important;
+    border-color: var(--btn-hover-border) !important;
+    transform: translateY(-1px);
+    box-shadow: var(--btn-hover-shadow);
   }
 
   .btn-client:active:not(:disabled) {
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
+    box-shadow: var(--btn-active-shadow);
+  }
+
+  .btn-client--text:hover:not(:disabled),
+  .btn-client--text:active:not(:disabled) {
+    transform: none;
   }
 
   .btn-client:focus-visible {

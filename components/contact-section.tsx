@@ -77,7 +77,7 @@ export function ContactSection() {
               </div>
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
+                className="btn-client w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-medium tracking-wider uppercase hover:bg-primary/90 transition-colors rounded-sm"
               >
                 <Send className="h-4 w-4" />
                 {t("contact.form.send")}

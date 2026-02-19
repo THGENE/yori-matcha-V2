@@ -380,13 +380,13 @@ export default function PanierPage() {
                 <div className="grid grid-cols-2 mb-6 border border-border rounded-sm overflow-hidden">
                   <button
                     onClick={() => setAuthMode("login")}
-                    className={`btn-client py-3 text-sm md:text-base font-medium ${authMode === "login" ? "bg-secondary" : "bg-background"}`}
+                    className={`btn-client btn-client--soft py-3 text-sm md:text-base font-medium ${authMode === "login" ? "bg-secondary" : "bg-background"}`}
                   >
                     ME CONNECTER
                   </button>
                   <button
                     onClick={() => setAuthMode("register")}
-                    className={`btn-client py-3 text-sm md:text-base font-medium ${authMode === "register" ? "bg-secondary" : "bg-background"}`}
+                    className={`btn-client btn-client--soft py-3 text-sm md:text-base font-medium ${authMode === "register" ? "bg-secondary" : "bg-background"}`}
                   >
                     CRÉER MON COMPTE
                   </button>

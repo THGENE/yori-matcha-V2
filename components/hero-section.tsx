@@ -47,13 +47,13 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
           <button
             onClick={() => scrollTo("ranges")}
-            className="bg-primary text-primary-foreground px-8 py-4 text-sm font-medium tracking-widest uppercase hover:bg-primary/90 transition-colors rounded-sm"
+            className="btn-client bg-primary text-primary-foreground px-8 py-4 text-sm font-medium tracking-widest uppercase hover:bg-primary/90 transition-colors rounded-sm"
           >
             {t("hero.cta")}
           </button>
           <button
             onClick={() => scrollTo("about")}
-            className="border border-foreground/30 text-foreground px-8 py-4 text-sm font-medium tracking-widest uppercase hover:border-primary hover:text-primary transition-colors rounded-sm bg-transparent"
+            className="btn-client btn-client--brand border border-foreground/30 text-foreground px-8 py-4 text-sm font-medium tracking-widest uppercase hover:border-primary hover:text-primary transition-colors rounded-sm bg-transparent"
           >
             {t("hero.secondary")}
           </button>

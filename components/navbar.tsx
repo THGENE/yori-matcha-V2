@@ -153,7 +153,7 @@ export function Navbar() {
               <div className="flex flex-col sm:flex-row gap-4 xl:col-span-8">
                 <button
                   onClick={closeAddFeedback}
-                  className="btn-client flex-1 border border-primary text-primary px-4 py-4 md:py-5 text-base md:text-lg font-medium tracking-wide uppercase hover:bg-primary/10 transition-colors rounded-md"
+                  className="btn-client btn-client--brand flex-1 border border-primary text-primary px-4 py-4 md:py-5 text-base md:text-lg font-medium tracking-wide uppercase hover:bg-primary/10 transition-colors rounded-md"
                 >
                   {locale === "fr" ? "Continuer mes achats" : "Continue shopping"}
                 </button>
