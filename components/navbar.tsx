@@ -62,19 +62,20 @@ export function Navbar() {
   useEffect(() => {
     if (!addFeedbackOpen) return
 
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = "hidden"
-
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         closeAddFeedback()
       }
     }
 
+    const timeoutId = window.setTimeout(() => {
+      closeAddFeedback()
+    }, 5000)
+
     window.addEventListener("keydown", onKeyDown)
 
     return () => {
-      document.body.style.overflow = previousOverflow
+      window.clearTimeout(timeoutId)
       window.removeEventListener("keydown", onKeyDown)
     }
   }, [addFeedbackOpen, closeAddFeedback])
@@ -89,12 +90,10 @@ export function Navbar() {
     <header className="relative z-40 bg-background/90 backdrop-blur-md border-b border-border/50">
       {addFeedbackOpen && (
         <div
-          className="fixed inset-0 z-[120] bg-background/85 backdrop-blur-md p-3 md:p-8 overflow-y-auto"
-          onClick={closeAddFeedback}
+          className="fixed inset-0 z-[120] bg-background/70 backdrop-blur-sm p-3 md:p-8 overflow-y-auto pointer-events-none"
         >
           <div
-            className="mx-auto w-full max-w-7xl bg-card/95 border border-border/60 ring-1 ring-border/40 rounded-2xl shadow-2xl overflow-hidden"
-            onClick={(event) => event.stopPropagation()}
+            className="pointer-events-auto mx-auto w-full max-w-7xl bg-card/95 border border-border/60 ring-1 ring-border/40 rounded-2xl shadow-2xl overflow-hidden"
           >
             <div className="flex items-center justify-between px-6 md:px-8 py-5 md:py-6 border-b border-border/50">
               <h3 className="text-foreground text-2xl md:text-4xl font-semibold flex items-center gap-3 md:gap-4">
