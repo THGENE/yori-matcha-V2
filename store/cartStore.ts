@@ -20,8 +20,11 @@ type CartState = {
   items: CartItem[];
   lastAddedItemId: string | null;
   addFeedbackOpen: boolean;
+  cartSidebarOpen: boolean;
   addItem: (item: AddPayload) => void;
   closeAddFeedback: () => void;
+  openCartSidebar: () => void;
+  closeCartSidebar: () => void;
   updateQuantity: (id: string, quantity: number) => void;
   removeItem: (id: string) => void;
   clear: () => void;
@@ -33,6 +36,7 @@ export const useCartStore = create<CartState>()(
       items: [],
       lastAddedItemId: null,
       addFeedbackOpen: false,
+      cartSidebarOpen: false,
       addItem: (item) =>
         set((state) => {
           const existing = state.items.find((i) => i.id === item.id);
@@ -43,15 +47,19 @@ export const useCartStore = create<CartState>()(
               ),
               lastAddedItemId: item.id,
               addFeedbackOpen: true,
+              cartSidebarOpen: true,
             };
           }
           return {
             items: [...state.items, { ...item, quantity: 1 }],
             lastAddedItemId: item.id,
             addFeedbackOpen: true,
+            cartSidebarOpen: true,
           };
         }),
       closeAddFeedback: () => set({ addFeedbackOpen: false }),
+      openCartSidebar: () => set({ cartSidebarOpen: true }),
+      closeCartSidebar: () => set({ cartSidebarOpen: false }),
       updateQuantity: (id, quantity) =>
         set((state) => ({
           items: state.items.map((item) =>

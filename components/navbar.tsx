@@ -2,83 +2,34 @@
 
 import { useState } from "react"
 import { useI18n } from "@/lib/i18n"
-import { Menu, X, ChevronDown, Globe, ShoppingBag, Check } from "lucide-react"
-import CartSidebar from "@/components/CartSidebar"
+import { Menu, X, ChevronDown, Globe, ShoppingBag } from "lucide-react"
 import { useCartStore } from "@/store/cartStore"
 import BrandLogo from "@/components/brand-logo"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { catalogById, catalogProducts } from "@/lib/product-catalog"
-import Link from "next/link"
-import Image from "next/image"
 
 export function Navbar() {
   const { t, locale, setLocale } = useI18n()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [rangesOpen, setRangesOpen] = useState(false)
   const [discoverOpen, setDiscoverOpen] = useState(false)
-  const [cartOpen, setCartOpen] = useState(false)
   const items = useCartStore((s) => s.items)
+  const openCartSidebar = useCartStore((s) => s.openCartSidebar)
   const cartCount = items.reduce((sum, i) => sum + i.quantity, 0)
-  const addFeedbackOpen = useCartStore((s) => s.addFeedbackOpen)
-  const lastAddedItemId = useCartStore((s) => s.lastAddedItemId)
-  const closeAddFeedback = useCartStore((s) => s.closeAddFeedback)
   const router = useRouter()
-
-  const lastAddedProduct = lastAddedItemId ? catalogById[lastAddedItemId] : undefined
-  const lastAddedItem = lastAddedItemId ? items.find((item) => item.id === lastAddedItemId) : undefined
-  const similarProducts = lastAddedProduct
-    ? catalogProducts
-        .filter(
-          (product) =>
-            product.category === lastAddedProduct.category && product.id !== lastAddedProduct.id
-        )
-        .slice(0, 3)
-    : []
-  const addedProductName = lastAddedProduct?.name ?? lastAddedItem?.name ?? (locale === "fr" ? "Produit ajouté" : "Added product")
-  const addedProductSubtitle =
-    lastAddedProduct?.subtitle?.[locale] ?? (locale === "fr" ? "Votre article est dans le panier" : "Your item is now in your cart")
-  const addedProductImage = lastAddedProduct?.image ?? "/placeholder.svg"
-  const addedProductPrice = lastAddedProduct?.price ?? lastAddedItem?.price ?? 0
-  const addedProductRef = lastAddedProduct?.id ?? lastAddedItemId ?? "-"
-  const freeShippingThreshold = 45
-  const cartTotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const remainingForFreeShipping = Math.max(0, freeShippingThreshold - cartTotal)
-  const freeShippingProgress = Math.min(100, Math.round((cartTotal / freeShippingThreshold) * 100))
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search)
       if (params.get("cart") !== "open") return
-      setCartOpen(true)
+      openCartSidebar()
       router.replace("/", { scroll: false })
     }
-  }, [router])
+  }, [openCartSidebar, router])
 
   useEffect(() => {
     router.prefetch("/panier")
   }, [router])
-
-  useEffect(() => {
-    if (!addFeedbackOpen) return
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeAddFeedback()
-      }
-    }
-
-    const timeoutId = window.setTimeout(() => {
-      closeAddFeedback()
-    }, 5000)
-
-    window.addEventListener("keydown", onKeyDown)
-
-    return () => {
-      window.clearTimeout(timeoutId)
-      window.removeEventListener("keydown", onKeyDown)
-    }
-  }, [addFeedbackOpen, closeAddFeedback])
 
   const scrollTo = (id: string) => {
     setMobileOpen(false)
@@ -88,132 +39,6 @@ export function Navbar() {
 
   return (
     <header className="relative z-40 bg-background/90 backdrop-blur-md border-b border-border/50">
-      {addFeedbackOpen && (
-        <div
-          className="fixed inset-0 z-[120] bg-background/85 backdrop-blur-md p-3 md:p-8 overflow-y-auto pointer-events-none flex items-center justify-center animate-fade-in"
-        >
-          <div
-            className="pointer-events-auto w-full max-w-7xl max-h-[92vh] bg-card/95 border border-primary/35 ring-1 ring-primary/20 rounded-2xl shadow-[0_30px_90px_rgba(0,0,0,0.55)] overflow-y-auto animate-fade-in-up"
-          >
-            <div className="flex items-center justify-between px-6 md:px-10 py-5 md:py-7 border-b border-primary/25 bg-primary/5">
-              <h3 className="text-foreground text-3xl md:text-5xl font-semibold flex items-center gap-3 md:gap-4 leading-tight">
-                <Check className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-                {locale === "fr" ? "Votre article a été ajouté au panier" : "Your item was added to cart"}
-              </h3>
-              <button
-                onClick={closeAddFeedback}
-                className="h-10 w-10 rounded-full border border-border/60 bg-background/60 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-border transition-colors"
-                aria-label="Close"
-              >
-                <X className="h-5 w-5 md:h-6 md:w-6" />
-              </button>
-            </div>
-
-            <div className="p-6 md:p-10 xl:p-12 space-y-10">
-              <div className="xl:grid xl:grid-cols-12 xl:gap-6 space-y-6 xl:space-y-0">
-                <div className="rounded-xl border border-border/50 bg-secondary/20 p-5 md:p-6 xl:col-span-7">
-                <p className="text-muted-foreground text-xl md:text-3xl text-center font-medium">
-                  {remainingForFreeShipping > 0
-                    ? locale === "fr"
-                      ? `Plus que ${remainingForFreeShipping.toFixed(2)}€ pour profiter de la livraison offerte !`
-                      : `Only ${remainingForFreeShipping.toFixed(2)}€ left for free shipping!`
-                    : locale === "fr"
-                      ? "Livraison offerte débloquée !"
-                      : "Free shipping unlocked!"}
-                </p>
-
-                <div className="mt-4 md:mt-5">
-                  <div className="h-3.5 w-full bg-secondary rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-primary transition-all duration-500"
-                      style={{ width: `${freeShippingProgress}%` }}
-                    />
-                  </div>
-                  <p className="mt-3 text-center text-sm md:text-base text-muted-foreground">
-                    {locale === "fr" ? "Livraison offerte dès 45€ d'achat" : "Free shipping from 45€"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-5 border border-border/50 rounded-xl p-5 md:p-6 bg-background/40 xl:col-span-5">
-                <div className="relative h-24 w-24 md:h-28 md:w-28 xl:h-32 xl:w-32 rounded-lg overflow-hidden bg-secondary/30">
-                  <Image
-                    src={addedProductImage}
-                    alt={addedProductName}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="flex-1">
-                  <p className="text-foreground text-2xl md:text-3xl font-semibold leading-tight">{addedProductName}</p>
-                  <p className="text-base md:text-xl text-muted-foreground mt-1">{addedProductSubtitle}</p>
-                  <p className="text-sm md:text-base text-muted-foreground mt-2">Ref. {addedProductRef}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-primary text-3xl md:text-4xl font-bold">{addedProductPrice.toFixed(2)} €</p>
-                  <p className="text-base md:text-xl text-foreground mt-1">Qté : {lastAddedItem?.quantity ?? 1}</p>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 xl:col-span-8">
-                <button
-                  onClick={closeAddFeedback}
-                  className="btn-client btn-client--brand flex-1 border-2 border-primary text-primary px-4 py-4 md:py-5 text-base md:text-lg font-semibold tracking-wide uppercase hover:bg-primary/10 transition-colors rounded-md"
-                >
-                  {locale === "fr" ? "Continuer mes achats" : "Continue shopping"}
-                </button>
-                <button
-                  onClick={() => {
-                    closeAddFeedback()
-                    router.push("/panier")
-                  }}
-                  className="btn-client flex-1 bg-primary text-primary-foreground px-4 py-4 md:py-5 text-base md:text-lg font-semibold tracking-wide uppercase hover:bg-primary/90 transition-colors rounded-md shadow-[0_8px_24px_hsl(var(--primary)/0.35)]"
-                >
-                  {locale === "fr" ? "Finaliser ma commande" : "Checkout"}
-                </button>
-              </div>
-
-              <div className="rounded-full bg-secondary px-6 py-3.5 w-fit mx-auto xl:mx-0 xl:col-span-4 xl:self-center">
-                <p className="text-sm md:text-base text-muted-foreground">
-                  {locale === "fr" ? "Livraison offerte dès 45 € d'achat" : "Free shipping from 45€"}
-                </p>
-              </div>
-              </div>
-
-              {similarProducts.length > 0 && (
-                <div>
-                  <h4 className="text-3xl md:text-4xl font-semibold text-foreground mb-6 text-center">
-                    {locale === "fr" ? "Notre sélection" : "Our selection"}
-                  </h4>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {similarProducts.map((product) => (
-                      <Link
-                        key={product.id}
-                        href={`/produit/${product.id}`}
-                        onClick={closeAddFeedback}
-                        className="border border-border/50 rounded-xl p-4 hover:border-primary/40 transition-colors bg-background"
-                      >
-                        <div className="relative h-44 w-full rounded-lg overflow-hidden mb-4 bg-secondary/30">
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <p className="text-lg font-semibold text-foreground line-clamp-2 leading-tight">{product.name}</p>
-                        <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{product.subtitle[locale]}</p>
-                        <p className="text-xl text-primary font-semibold mt-3">{product.price.toFixed(2)} €</p>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
       <nav className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="flex h-16 items-center justify-between lg:h-20">
           {/* Logo */}
@@ -225,7 +50,7 @@ export function Navbar() {
           <div className="flex items-center gap-4">
             {/* Panier (sidebar) */}
             <button
-              onClick={() => setCartOpen(true)}
+              onClick={openCartSidebar}
               className="relative flex items-center justify-center text-foreground hover:text-primary transition-colors"
               aria-label="Voir le panier"
             >
@@ -236,8 +61,6 @@ export function Navbar() {
                 </span>
               )}
             </button>
-              {/* Sidebar panier */}
-              <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
             <button
               onClick={() => setLocale(locale === "fr" ? "en" : "fr")}
               className="flex items-center gap-1.5 text-sm text-foreground/70 hover:text-primary transition-colors"

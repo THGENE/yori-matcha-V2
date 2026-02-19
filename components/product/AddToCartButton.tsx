@@ -3,25 +3,19 @@
 import { useCartStore } from "@/store/cartStore";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
 
 type Props = {
   id: string;
   name: string;
   price: number;
-  redirectToProduct?: boolean;
 };
 
-export default function AddToCartButton({ id, name, price, redirectToProduct = true }: Props) {
+export default function AddToCartButton({ id, name, price }: Props) {
   const addItem = useCartStore((s) => s.addItem);
-  const router = useRouter();
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
     addItem({ id, name, price });
-    if (redirectToProduct) {
-      router.push("/panier");
-    }
     setClicked(true);
     setTimeout(() => setClicked(false), 700);
   };

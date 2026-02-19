@@ -6,7 +6,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useCartStore } from "@/store/cartStore"
 import { catalogById } from "@/lib/product-catalog"
-import { ChevronDown, Lock, Trash2, X } from "lucide-react"
+import { ArrowLeft, ChevronDown, Lock, Trash2, X } from "lucide-react"
 import StripeProvider from "@/components/checkout/StripeProvider"
 import CheckoutForm from "@/components/checkout/CheckoutForm"
 
@@ -337,9 +337,19 @@ export default function PanierPage() {
     <main className="min-h-screen bg-background text-foreground">
       <header className="bg-primary text-primary-foreground">
         <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-semibold tracking-wide">
-            YORI MATCHA
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/40 bg-primary-foreground/15 px-4 py-2 text-base font-semibold hover:bg-primary-foreground/25 transition-colors shadow-sm"
+              aria-label="Retour à l'accueil"
+            >
+              <ArrowLeft className="h-5 w-5" />
+              Retour
+            </Link>
+            <Link href="/" className="text-xl font-semibold tracking-wide">
+              YORI MATCHA
+            </Link>
+          </div>
           <span className="text-sm opacity-90">Panier</span>
         </div>
       </header>

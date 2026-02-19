@@ -35,10 +35,23 @@ export async function POST(req: Request) {
     const shippingCost =
       shippingMethod === "chronopost_express" ? 1290 : 790;
 
+    const microPaymentEnabled = process.env.STRIPE_MICRO_PAYMENT_TEST === "true";
+    const microPaymentAmountRaw = Number(process.env.STRIPE_MICRO_PAYMENT_AMOUNT_CENTS ?? "100");
+    const microPaymentAmountCents = Number.isFinite(microPaymentAmountRaw) && microPaymentAmountRaw > 0
+      ? Math.round(microPaymentAmountRaw)
+      : 100;
+
+    const finalAmount = microPaymentEnabled
+      ? microPaymentAmountCents
+      : amountProductsInCents + shippingCost;
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amountProductsInCents + shippingCost,
+      amount: finalAmount,
       currency: "eur",
       automatic_payment_methods: { enabled: true },
+      metadata: {
+        microPaymentTest: microPaymentEnabled ? "true" : "false",
+      },
     });
 
     return NextResponse.json({
