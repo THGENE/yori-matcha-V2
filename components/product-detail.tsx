@@ -144,9 +144,9 @@ function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="p-6 flex flex-col flex-1">
-        <div className="flex items-start justify-between mb-3">
-          <h3 className="font-serif text-xl font-bold text-foreground">{product.name}</h3>
-          <span className="text-primary font-bold text-lg">{product.price.toFixed(2)}{"€"}</span>
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h3 className="font-serif text-xl font-bold text-foreground min-h-[3.5rem] leading-snug">{product.name}</h3>
+          <span className="text-primary font-bold text-lg shrink-0 text-right">{product.price.toFixed(2)}{"€"}</span>
         </div>
 
         {/* Rating */}

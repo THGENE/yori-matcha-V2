@@ -89,7 +89,7 @@ export function AccessoriesSection() {
               key={item.id}
               className="bg-card border border-border/50 p-6 rounded-sm hover:border-primary/30 transition-colors h-full flex flex-col"
             >
-              <h3 className="font-serif text-xl font-bold text-foreground mb-2">
+              <h3 className="font-serif text-xl font-bold text-foreground mb-2 min-h-[3.5rem] leading-snug">
                 {t(item.titleKey)}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">

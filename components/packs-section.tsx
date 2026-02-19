@@ -84,11 +84,11 @@ export function PacksSection() {
               </div>
 
               <div className="p-6 flex flex-col flex-1">
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-serif text-xl font-bold text-foreground">
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <h3 className="font-serif text-xl font-bold text-foreground min-h-[3.5rem] leading-snug">
                     {t(pack.titleKey)}
                   </h3>
-                  <span className="text-primary font-bold text-lg">{pack.price.toFixed(2)}{"€"}</span>
+                  <span className="text-primary font-bold text-lg shrink-0 text-right">{pack.price.toFixed(2)}{"€"}</span>
                 </div>
 
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
