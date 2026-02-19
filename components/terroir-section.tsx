@@ -3,9 +3,34 @@
 import { useI18n } from "@/lib/i18n"
 import Image from "next/image"
 import { MapPin } from "lucide-react"
+import { useEffect, useState } from "react"
+
+const terroirBackgrounds = [
+  {
+    src: "/images/terroir-yame-01.jpg",
+    alt: "Plantation de thé de Yame",
+  },
+  {
+    src: "/images/terroir-uji-01.jpg",
+    alt: "Plantation de thé de Uji à Kyoto",
+  },
+  {
+    src: "/images/terroir-uji-02.jpg",
+    alt: "Champs de thé de la région de Uji",
+  },
+]
 
 export function TerroirSection() {
   const { t } = useI18n()
+  const [activeBackgroundIndex, setActiveBackgroundIndex] = useState(0)
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveBackgroundIndex((current) => (current + 1) % terroirBackgrounds.length)
+    }, 3500)
+
+    return () => window.clearInterval(intervalId)
+  }, [])
 
   return (
     <section id="terroir" className="py-20 lg:py-24 px-4">
@@ -21,12 +46,17 @@ export function TerroirSection() {
 
         {/* Full width terroir image */}
         <div className="relative aspect-[21/9] rounded-sm overflow-hidden mb-16">
-          <Image
-            src="/images/daily-matcha.png"
-            alt="Japanese tea fields"
-            fill
-            className="object-cover"
-          />
+          {terroirBackgrounds.map((background, index) => (
+            <Image
+              key={background.src}
+              src={background.src}
+              alt={background.alt}
+              fill
+              className={`object-cover brightness-105 contrast-95 saturate-90 transition-opacity duration-1000 ${
+                index === activeBackgroundIndex ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
           <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/30 to-background/80" />
         </div>
 

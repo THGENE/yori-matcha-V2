@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n"
 import PackshotImage from "@/components/PackshotImage"
 import { ShoppingBag, Package } from "lucide-react"
 import { useCartStore } from "@/store/cartStore"
+import Link from "next/link"
 
 const packs = [
   {
@@ -111,6 +112,12 @@ export function PacksSection() {
                   <ShoppingBag className="h-4 w-4" />
                   {t("products.addToCart")}
                 </button>
+                <Link
+                  href={`/produit/${pack.id}`}
+                  className="mt-3 text-center text-sm text-primary hover:text-primary/80 transition-colors"
+                >
+                  {locale === "fr" ? "Voir la fiche produit" : "View product details"}
+                </Link>
               </div>
             </div>
           ))}

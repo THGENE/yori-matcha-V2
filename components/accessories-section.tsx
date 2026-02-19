@@ -5,6 +5,7 @@ import Image from "next/image"
 import { ShoppingBag } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useCartStore } from "@/store/cartStore"
+import Link from "next/link"
 
 const accessories = [
   {
@@ -43,7 +44,7 @@ const accessoryBackgrounds = [
 ]
 
 export function AccessoriesSection() {
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
   const addItem = useCartStore((s) => s.addItem)
   const [activeBackgroundIndex, setActiveBackgroundIndex] = useState(0)
 
@@ -108,6 +109,12 @@ export function AccessoriesSection() {
                   {t("products.addToCart")}
                 </button>
               </div>
+              <Link
+                href={`/produit/${item.id}`}
+                className="mt-3 text-sm text-primary hover:text-primary/80 transition-colors"
+              >
+                {locale === "fr" ? "Voir la fiche produit" : "View product details"}
+              </Link>
             </div>
           ))}
         </div>
