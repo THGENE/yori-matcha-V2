@@ -35,6 +35,12 @@ export function Navbar() {
         )
         .slice(0, 3)
     : []
+  const addedProductName = lastAddedProduct?.name ?? lastAddedItem?.name ?? (locale === "fr" ? "Produit ajouté" : "Added product")
+  const addedProductSubtitle =
+    lastAddedProduct?.subtitle?.[locale] ?? (locale === "fr" ? "Votre article est dans le panier" : "Your item is now in your cart")
+  const addedProductImage = lastAddedProduct?.image ?? "/placeholder.svg"
+  const addedProductPrice = lastAddedProduct?.price ?? lastAddedItem?.price ?? 0
+  const addedProductRef = lastAddedProduct?.id ?? lastAddedItemId ?? "-"
   const freeShippingThreshold = 45
   const cartTotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const remainingForFreeShipping = Math.max(0, freeShippingThreshold - cartTotal)
@@ -81,7 +87,7 @@ export function Navbar() {
 
   return (
     <header className="relative z-40 bg-background/90 backdrop-blur-md border-b border-border/50">
-      {addFeedbackOpen && lastAddedProduct && (
+      {addFeedbackOpen && (
         <div
           className="fixed inset-0 z-[120] bg-background/85 backdrop-blur-md p-3 md:p-8 overflow-y-auto"
           onClick={closeAddFeedback}
@@ -133,19 +139,19 @@ export function Navbar() {
               <div className="flex items-center gap-5 border border-border/50 rounded-xl p-5 md:p-6 bg-background/40 xl:col-span-5">
                 <div className="relative h-24 w-24 md:h-28 md:w-28 xl:h-32 xl:w-32 rounded-lg overflow-hidden bg-secondary/30">
                   <Image
-                    src={lastAddedProduct.image}
-                    alt={lastAddedProduct.name}
+                    src={addedProductImage}
+                    alt={addedProductName}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="flex-1">
-                  <p className="text-foreground text-2xl md:text-3xl font-semibold leading-tight">{lastAddedProduct.name}</p>
-                  <p className="text-base md:text-xl text-muted-foreground mt-1">{lastAddedProduct.subtitle[locale]}</p>
-                  <p className="text-sm md:text-base text-muted-foreground mt-2">Ref. {lastAddedProduct.id}</p>
+                  <p className="text-foreground text-2xl md:text-3xl font-semibold leading-tight">{addedProductName}</p>
+                  <p className="text-base md:text-xl text-muted-foreground mt-1">{addedProductSubtitle}</p>
+                  <p className="text-sm md:text-base text-muted-foreground mt-2">Ref. {addedProductRef}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-primary text-3xl md:text-4xl font-bold">{lastAddedProduct.price.toFixed(2)} €</p>
+                  <p className="text-primary text-3xl md:text-4xl font-bold">{addedProductPrice.toFixed(2)} €</p>
                   <p className="text-base md:text-xl text-foreground mt-1">Qté : {lastAddedItem?.quantity ?? 1}</p>
                 </div>
               </div>
