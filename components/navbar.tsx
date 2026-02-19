@@ -90,14 +90,14 @@ export function Navbar() {
     <header className="relative z-40 bg-background/90 backdrop-blur-md border-b border-border/50">
       {addFeedbackOpen && (
         <div
-          className="fixed inset-0 z-[120] bg-background/70 backdrop-blur-sm p-3 md:p-8 overflow-y-auto pointer-events-none"
+          className="fixed inset-0 z-[120] bg-background/85 backdrop-blur-md p-3 md:p-8 overflow-y-auto pointer-events-none flex items-center justify-center animate-fade-in"
         >
           <div
-            className="pointer-events-auto mx-auto w-full max-w-7xl bg-card/95 border border-border/60 ring-1 ring-border/40 rounded-2xl shadow-2xl overflow-hidden"
+            className="pointer-events-auto w-full max-w-7xl max-h-[92vh] bg-card/95 border border-primary/35 ring-1 ring-primary/20 rounded-2xl shadow-[0_30px_90px_rgba(0,0,0,0.55)] overflow-y-auto animate-fade-in-up"
           >
-            <div className="flex items-center justify-between px-6 md:px-8 py-5 md:py-6 border-b border-border/50">
-              <h3 className="text-foreground text-2xl md:text-4xl font-semibold flex items-center gap-3 md:gap-4">
-                <Check className="h-6 w-6 md:h-7 md:w-7 text-primary" />
+            <div className="flex items-center justify-between px-6 md:px-10 py-5 md:py-7 border-b border-primary/25 bg-primary/5">
+              <h3 className="text-foreground text-3xl md:text-5xl font-semibold flex items-center gap-3 md:gap-4 leading-tight">
+                <Check className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                 {locale === "fr" ? "Votre article a été ajouté au panier" : "Your item was added to cart"}
               </h3>
               <button
@@ -112,7 +112,7 @@ export function Navbar() {
             <div className="p-6 md:p-10 xl:p-12 space-y-10">
               <div className="xl:grid xl:grid-cols-12 xl:gap-6 space-y-6 xl:space-y-0">
                 <div className="rounded-xl border border-border/50 bg-secondary/20 p-5 md:p-6 xl:col-span-7">
-                <p className="text-muted-foreground text-lg md:text-2xl text-center font-medium">
+                <p className="text-muted-foreground text-xl md:text-3xl text-center font-medium">
                   {remainingForFreeShipping > 0
                     ? locale === "fr"
                       ? `Plus que ${remainingForFreeShipping.toFixed(2)}€ pour profiter de la livraison offerte !`
@@ -158,7 +158,7 @@ export function Navbar() {
               <div className="flex flex-col sm:flex-row gap-4 xl:col-span-8">
                 <button
                   onClick={closeAddFeedback}
-                  className="btn-client btn-client--brand flex-1 border border-primary text-primary px-4 py-4 md:py-5 text-base md:text-lg font-medium tracking-wide uppercase hover:bg-primary/10 transition-colors rounded-md"
+                  className="btn-client btn-client--brand flex-1 border-2 border-primary text-primary px-4 py-4 md:py-5 text-base md:text-lg font-semibold tracking-wide uppercase hover:bg-primary/10 transition-colors rounded-md"
                 >
                   {locale === "fr" ? "Continuer mes achats" : "Continue shopping"}
                 </button>
@@ -167,7 +167,7 @@ export function Navbar() {
                     closeAddFeedback()
                     router.push("/panier")
                   }}
-                  className="btn-client flex-1 bg-primary text-primary-foreground px-4 py-4 md:py-5 text-base md:text-lg font-medium tracking-wide uppercase hover:bg-primary/90 transition-colors rounded-md"
+                  className="btn-client flex-1 bg-primary text-primary-foreground px-4 py-4 md:py-5 text-base md:text-lg font-semibold tracking-wide uppercase hover:bg-primary/90 transition-colors rounded-md shadow-[0_8px_24px_hsl(var(--primary)/0.35)]"
                 >
                   {locale === "fr" ? "Finaliser ma commande" : "Checkout"}
                 </button>
