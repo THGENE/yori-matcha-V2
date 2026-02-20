@@ -1,7 +1,7 @@
 "use client"
 
 import { useI18n } from "@/lib/i18n"
-import PackshotImage, { PACKSHOT_PREMIUM_STYLE } from "@/components/PackshotImage"
+import PackshotImage, { getPackshotStyleByProductId } from "@/components/PackshotImage"
 import { ShoppingBag, Package } from "lucide-react"
 import { useCartStore } from "@/store/cartStore"
 import Link from "next/link"
@@ -71,15 +71,14 @@ export function PacksSection() {
           {packs.map((pack) => (
             <div
               key={pack.id}
-              className="product-card-interactive bg-card border border-border/50 rounded-sm overflow-hidden transition-all duration-300 group h-full flex flex-col"
+              className="product-card-interactive product-card-daily border rounded-sm overflow-hidden transition-all duration-300 group h-full flex flex-col"
             >
               <div className="product-visual-shell relative aspect-square overflow-hidden">
                 <PackshotImage
                   src={pack.image || "/placeholder.svg"}
                   alt={t(pack.titleKey)}
-                  style={PACKSHOT_PREMIUM_STYLE}
+                  style={getPackshotStyleByProductId(pack.id)}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <Package className="h-4 w-4 text-primary" />
@@ -105,7 +104,7 @@ export function PacksSection() {
                   {t(pack.descKey)}
                 </p>
 
-                <div className="bg-secondary/30 p-3 rounded-sm mb-4">
+                <div className="product-info-daily p-3 rounded-sm mb-4">
                   <p className="text-xs text-muted-foreground leading-relaxed">
                     {pack.details[locale]}
                   </p>

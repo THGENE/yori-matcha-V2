@@ -130,7 +130,7 @@ function ProductCard({ product }: { product: Product }) {
   const resolvedImage = catalogById[product.id]?.image ?? product.image
 
   return (
-    <div className="product-card-interactive bg-card border border-border/50 rounded-sm overflow-hidden transition-all duration-300 h-full flex flex-col">
+    <div className="product-card-interactive product-card-daily border rounded-sm overflow-hidden transition-all duration-300 h-full flex flex-col">
       <div className="product-visual-shell relative aspect-square overflow-hidden">
         <PackshotImage
           src={resolvedImage || "/placeholder.svg"}
@@ -221,7 +221,7 @@ function ProductCard({ product }: { product: Product }) {
               <h4 className="text-primary font-medium mb-3">{t("products.reviews")}</h4>
               <div className="space-y-3">
                 {product.reviews.map((review) => (
-                  <div key={review.name} className="bg-secondary/30 p-3 rounded-sm">
+                  <div key={review.name} className="product-info-daily p-3 rounded-sm">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-foreground font-medium text-xs">{review.name}</span>
                       <div className="flex items-center gap-0.5">
@@ -265,7 +265,7 @@ export function ProductsSection() {
   const { t, locale } = useI18n();
 
   return (
-    <section id="bestsellers" className="py-20 lg:py-24 px-4 bg-secondary/20">
+    <section id="bestsellers" className="py-20 lg:py-24 px-4 bg-black">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4 text-balance">

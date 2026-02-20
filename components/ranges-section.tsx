@@ -59,7 +59,7 @@ export function RangesSection() {
             <div
               key={range.id}
               id={range.id}
-              className="group bg-card border border-border/50 rounded-sm overflow-hidden hover:border-primary/30 transition-all duration-500"
+              className="product-card-daily group border rounded-sm overflow-hidden transition-all duration-500"
             >
               <div className="product-visual-shell relative aspect-square overflow-hidden">
                 <PackshotImage
@@ -67,7 +67,6 @@ export function RangesSection() {
                   alt={t(range.titleKey)}
                   style={getPackshotStyleByProductId(range.productId)}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
                 <div className="absolute bottom-4 left-4">
                   <span className="inline-block bg-primary/90 text-primary-foreground text-xs tracking-wider uppercase px-3 py-1 rounded-sm font-medium">
                     {range.formatLabel[locale]} - {range.format}

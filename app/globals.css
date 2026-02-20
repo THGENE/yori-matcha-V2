@@ -96,6 +96,20 @@
     background: #000000;
   }
 
+  .product-card-daily {
+    background: #000000;
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .product-card-daily:hover {
+    border-color: hsl(var(--primary) / 0.5);
+  }
+
+  .product-info-daily {
+    background: hsl(var(--primary) / 0.12);
+    border: 1px solid hsl(var(--primary) / 0.22);
+  }
+
   .product-powder-overlay {
     opacity: 1;
   }
