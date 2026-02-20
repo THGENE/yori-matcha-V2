@@ -12,7 +12,7 @@ export const PACKSHOT_PREMIUM_STYLE: React.CSSProperties = {
   padding: "8%",
 };
 
-export default function PackshotImage({ overlay = true, flipX = false, ...props }: PackshotImageProps) {
+export default function PackshotImage({ overlay = false, flipX = false, ...props }: PackshotImageProps) {
   const mergedTransform = `${flipX ? "scaleX(-1)" : ""}${props.style?.transform ? ` ${props.style.transform}` : ""}`.trim();
 
   return (
